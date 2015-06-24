@@ -1,0 +1,474 @@
+fileFormatVersion: 2
+guid: e54d69019b927ec46bb5fc852342fba5
+timeCreated: 1425935870
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    0: squirrel_tail_5
+    21300000: squirrel_jumping
+    21300002: squirrel_idle
+    21300004: squirrel_ducking
+    21300006: squirrel_running_1
+    21300008: squirrel_running_2
+    21300010: squirrel_running_3
+    21300012: frog_idle
+    21300014: sprites_0
+    21300016: sprites_1
+    21300018: sprites_3
+    21300020: sprites_4
+    21300022: sprites_5
+    21300024: sprites_6
+    21300026: sprites_7
+    21300028: sprites_8
+    21300030: sprites_9
+    21300032: squirrel_tail_2
+    21300034: squirrel_tail_1
+    21300036: nut
+    21300038: sprites_13
+    21300040: sprites_14
+    21300042: sprites_15
+    21300044: sprites_16
+    21300046: sprites_17
+    21300048: sprites_18
+    21300050: sprites_19
+    21300052: sprites_20
+    21300054: sprites_21
+    21300056: sprites_22
+    21300058: sprites_23
+    21300060: sprites_24
+    21300062: sprites_25
+    21300064: sprites_2
+    21300066: sprites_26
+    21300068: squirrel_tail_3
+    21300070: squirrel_tail_4
+    21300072: squirrel_tail_5
+    21300074: squirrel_tail_1_low
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: squirrel_jumping
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 94
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_idle
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 123
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_ducking
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 123
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_running_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 123
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_running_2
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 123
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_running_3
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 123
+        width: 20
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: frog_idle
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 123
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_0
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 139
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_1
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 138
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_3
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 137
+        width: 49
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_4
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 123
+        width: 15
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_5
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 130
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_6
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 121
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_7
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 101
+        width: 45
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_8
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 121
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_9
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 15
+        width: 37
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_2
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 115
+        width: 14
+        height: 6
+      alignment: 9
+      pivot: {x: .800000012, y: .400000006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_1
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 110
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: nut
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 114
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_13
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 109
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 108
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_15
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 112
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_16
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 94
+        width: 6
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_17
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 108
+        width: 18
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_18
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 103
+        width: 20
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_19
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 95
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_20
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 94
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_21
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 94
+        width: 22
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_22
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 85
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_23
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 76
+        width: 26
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_24
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 67
+        width: 28
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_25
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 113
+        width: 43
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_2
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 125
+        width: 41
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_26
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 137
+        width: 16
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_3
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 83
+        width: 11
+        height: 8
+      alignment: 9
+      pivot: {x: .75999999, y: .560000002}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_4
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 83
+        width: 11
+        height: 8
+      alignment: 9
+      pivot: {x: .75999999, y: .340000004}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_5
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 85
+        width: 14
+        height: 6
+      alignment: 9
+      pivot: {x: .800000012, y: .400000006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: squirrel_tail_1_low
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 110
+        width: 8
+        height: 11
+      alignment: 9
+      pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
