@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 
 Project("{3C1F5C3B-3B6E-9E58-B258-817E34DA3ED0}") = "NutQuest", "Assembly-CSharp-vs.csproj", "{5DC9EB6B-F842-E604-A08E-2339E2CADFF7}"
 EndProject
+Project("{3C1F5C3B-3B6E-9E58-B258-817E34DA3ED0}") = "NutQuest", "Assembly-CSharp-Editor-vs.csproj", "{C6F0673C-08FD-5C5A-AF96-C00CEF50B5D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,11 +15,15 @@ Global
 		{5DC9EB6B-F842-E604-A08E-2339E2CADFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC9EB6B-F842-E604-A08E-2339E2CADFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC9EB6B-F842-E604-A08E-2339E2CADFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F0673C-08FD-5C5A-AF96-C00CEF50B5D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F0673C-08FD-5C5A-AF96-C00CEF50B5D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F0673C-08FD-5C5A-AF96-C00CEF50B5D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F0673C-08FD-5C5A-AF96-C00CEF50B5D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-													GlobalSection(MonoDevelopProperties) = preSolution
+																																																															GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

@@ -39,32 +39,47 @@
 	<Reference Include="System.Core" />
 	<Reference Include="System.Xml.Linq" />
 	<Reference Include="UnityEngine">
-	  <HintPath>E:/Program Files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	  <HintPath>E:/Program files/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
 	</Reference>
 	<Reference Include="UnityEditor">
-	  <HintPath>E:/Program Files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	  <HintPath>E:/Program files/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FrogBehaviourScript.cs" />
-     <Compile Include="Assets\NutBehaviourScript.cs" />
-     <Compile Include="Assets\NutSpawnerBehaviourScript.cs" />
-     <Compile Include="Assets\PlayerBehaviourScript.cs" />
-     <Compile Include="Assets\WorldScript.cs" />
-     <Compile Include="Assets\jumping_to_idle.cs" />
-     <Compile Include="Assets\squirrel_idle_behaviour.cs" />
-     <Compile Include="Assets\tail_idle_b.cs" />
+     <Compile Include="Assets\Scripts\AppleBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\CameraBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\FrogBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\NutBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\NutSpawnerBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\PlayerBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\WorldScript.cs" />
+     <Compile Include="Assets\Scripts\frog_bottom_collider_script.cs" />
+     <Compile Include="Assets\Scripts\frog_tongue_area_collider_script.cs" />
+     <Compile Include="Assets\Scripts\frog_tongue_end_script.cs" />
+     <Compile Include="Assets\Scripts\frog_tongue_script.cs" />
+     <Compile Include="Assets\Scripts\frog_top_collider_script.cs" />
+     <Compile Include="Assets\Scripts\player_bottom_collider_script.cs" />
+     <Compile Include="Assets\Scripts\player_surrounding_collider_script.cs" />
+     <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample05.cs" />
+     <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample06.cs" />
+     <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample06Rotator.cs" />
+     <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample06Scaller.cs" />
+     <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample06Translator.cs" />
+     <Compile Include="Assets\SpriteMask\Scripts\SpriteMask.cs" />
+     <None Include="Assets\SpriteMask\Readme.txt" />
+     <None Include="Assets\SpriteMask\Resources\SpriteMask.shader" />
+     <None Include="Assets\SpriteMask\Resources\SpriteDefault.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
- <HintPath>E:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

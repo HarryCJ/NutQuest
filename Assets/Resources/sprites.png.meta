@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1425935870
+timeCreated: 1436724883
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,10 +12,10 @@ TextureImporter:
     21300008: squirrel_running_2
     21300010: squirrel_running_3
     21300012: frog_idle
-    21300014: sprites_0
+    21300014: frog_open
     21300016: sprites_1
     21300018: sprites_3
-    21300020: sprites_4
+    21300020: frog_jumping
     21300022: sprites_5
     21300024: sprites_6
     21300026: sprites_7
@@ -28,7 +28,7 @@ TextureImporter:
     21300040: sprites_14
     21300042: sprites_15
     21300044: sprites_16
-    21300046: sprites_17
+    21300046: frog_dead
     21300048: sprites_18
     21300050: sprites_19
     21300052: sprites_20
@@ -43,6 +43,10 @@ TextureImporter:
     21300070: squirrel_tail_4
     21300072: squirrel_tail_5
     21300074: squirrel_tail_1_low
+    21300076: sprites_4
+    21300078: blank
+    21300080: apple
+    21300082: frog_tongue
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -95,8 +99,8 @@ TextureImporter:
         y: 94
         width: 12
         height: 14
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .349999994, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_idle
       rect:
@@ -113,10 +117,10 @@ TextureImporter:
         serializedVersion: 2
         x: 13
         y: 123
-        width: 13
-        height: 9
-      alignment: 0
-      pivot: {x: .5, y: .5}
+        width: 10
+        height: 11
+      alignment: 9
+      pivot: {x: .400000006, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_running_1
       rect:
@@ -145,8 +149,8 @@ TextureImporter:
         y: 123
         width: 20
         height: 11
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .50999999, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: frog_idle
       rect:
@@ -158,7 +162,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_0
+    - name: frog_open
       rect:
         serializedVersion: 2
         x: 120
@@ -188,7 +192,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_4
+    - name: frog_jumping
       rect:
         serializedVersion: 2
         x: 104
@@ -256,7 +260,7 @@ TextureImporter:
         width: 14
         height: 6
       alignment: 9
-      pivot: {x: .800000012, y: .400000006}
+      pivot: {x: .850000083, y: .349999756}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_tail_1
       rect:
@@ -318,13 +322,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_17
+    - name: frog_dead
       rect:
         serializedVersion: 2
         x: 53
-        y: 108
+        y: 110
         width: 18
-        height: 7
+        height: 8
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -436,7 +440,7 @@ TextureImporter:
         width: 11
         height: 8
       alignment: 9
-      pivot: {x: .75999999, y: .560000002}
+      pivot: {x: .813636422, y: .487500191}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_tail_4
       rect:
@@ -446,7 +450,7 @@ TextureImporter:
         width: 11
         height: 8
       alignment: 9
-      pivot: {x: .75999999, y: .340000004}
+      pivot: {x: .81363678, y: .262499809}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_tail_5
       rect:
@@ -456,7 +460,7 @@ TextureImporter:
         width: 14
         height: 6
       alignment: 9
-      pivot: {x: .800000012, y: .400000006}
+      pivot: {x: .857143939, y: .249998733}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: squirrel_tail_1_low
       rect:
@@ -467,6 +471,46 @@ TextureImporter:
         height: 11
       alignment: 9
       pivot: {x: .5, y: .300000012}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sprites_4
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 123
+        width: 20
+        height: 11
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blank
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 105
+        width: 1
+        height: 1
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: apple
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 111
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: frog_tongue
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 136
+        width: 31
+        height: 3
+      alignment: 5
+      pivot: {x: 1, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
