@@ -14,7 +14,7 @@ public class NutBehaviourScript : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 	}
 
     IEnumerator grow(){

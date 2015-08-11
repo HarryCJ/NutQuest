@@ -9,7 +9,7 @@ public class AppleBehaviourScript : NutBehaviourScript {
 	// }
 	//
 	// // Update is called once per frame
-	// void Update () {
+	// void FixedUpdate () {
 	//
 	// }
 }

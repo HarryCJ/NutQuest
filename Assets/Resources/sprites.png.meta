@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1436724883
+timeCreated: 1439153363
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -24,14 +24,14 @@ TextureImporter:
     21300032: squirrel_tail_2
     21300034: squirrel_tail_1
     21300036: nut
-    21300038: sprites_13
-    21300040: sprites_14
+    21300038: bird_flap_up
+    21300040: bird_flap_down
     21300042: sprites_15
-    21300044: sprites_16
+    21300044: bird_fall
     21300046: frog_dead
     21300048: sprites_18
     21300050: sprites_19
-    21300052: sprites_20
+    21300052: bird_splat
     21300054: sprites_21
     21300056: sprites_22
     21300058: sprites_23
@@ -47,6 +47,17 @@ TextureImporter:
     21300078: blank
     21300080: apple
     21300082: frog_tongue
+    21300084: bird_dead
+    21300086: bird_flap_up_carrying
+    21300088: bird_flap_down_carrying
+    21300090: sparkle_1
+    21300092: sparkle_3
+    21300094: sparkle_2
+    21300096: sparkle_4
+    21300098: cloud_1
+    21300100: cloud_2
+    21300102: shadow
+    21300104: shadow_small
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -282,7 +293,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_13
+    - name: bird_flap_up
       rect:
         serializedVersion: 2
         x: 79
@@ -292,12 +303,12 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_14
+    - name: bird_flap_down
       rect:
         serializedVersion: 2
         x: 96
         y: 108
-        width: 15
+        width: 16
         height: 8
       alignment: 0
       pivot: {x: .5, y: .5}
@@ -312,7 +323,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_16
+    - name: bird_fall
       rect:
         serializedVersion: 2
         x: 43
@@ -352,7 +363,7 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: sprites_20
+    - name: bird_dead
       rect:
         serializedVersion: 2
         x: 50
@@ -511,6 +522,106 @@ TextureImporter:
         height: 3
       alignment: 5
       pivot: {x: 1, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bird_flap_up_carrying
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 71
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bird_flap_down_carrying
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 70
+        width: 16
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sparkle_1
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 102
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sparkle_3
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 102
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sparkle_2
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 94
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: sparkle_4
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 94
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cloud_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 71
+        width: 24
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: cloud_2
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 60
+        width: 31
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shadow
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 136
+        width: 13
+        height: 3
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: shadow_small
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 140
+        width: 9
+        height: 3
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

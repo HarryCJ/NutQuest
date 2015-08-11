@@ -31,14 +31,16 @@ public class WorldScript : MonoBehaviour {
         //        rb.mass = 10;
         //        FrogBehaviourScript frogBS = newFrog.AddComponent<FrogBehaviourScript>();
 
+        StartCoroutine(spawnBirds());
         StartCoroutine(spawnFrogs());
+        StartCoroutine(spawnClouds());
     }
 
     IEnumerator spawnFrogs()
     {
         while (true)
         {
-            float delay = UnityEngine.Random.Range(0.5f, 10);
+            float delay = UnityEngine.Random.Range(5f, 10f);
             yield return new WaitForSeconds(delay);
 
             if (UnityEngine.Random.Range(0, 2) == 0){
@@ -54,6 +56,59 @@ public class WorldScript : MonoBehaviour {
         }
     }
 
+    IEnumerator spawnBirds()
+    {
+        while (true)
+        {
+            float delay = UnityEngine.Random.Range(6f, 10f);
+            yield return new WaitForSeconds(delay);
+
+            if (UnityEngine.Random.Range(0, 2) == 0){
+
+                addBird(new Vector3(25, 4, 0), false);
+
+            } else {
+
+                addBird(new Vector3(-25, 4, 0), true);
+
+            }
+        }
+    }
+
+    IEnumerator spawnClouds()
+    {
+        while (true)
+        {
+            float delay = UnityEngine.Random.Range(5f, 10f);
+            yield return new WaitForSeconds(delay);
+
+            GameObject mycloud = Instantiate(Resources.Load("cloud")) as GameObject;
+            CloudBehaviourScript cloudBS = mycloud.GetComponent<CloudBehaviourScript>();
+
+    		//pick sprite
+    		SpriteRenderer sr = mycloud.GetComponent<SpriteRenderer>();
+    		Sprite[] sprites = Resources.LoadAll<Sprite>(@"sprites");
+    		string[] cloudNames = new string[]{"cloud_1", "cloud_2"};
+    		int cloudSprite = UnityEngine.Random.Range(0, cloudNames.Length);
+    		for (int x = 0; x < sprites.Length; x++) {
+    			if (sprites[x].name == cloudNames[cloudSprite]){
+    				sr.sprite = sprites[x];
+    			}
+    		}
+
+    		//pick opacity
+    		Color myC = sr.color;
+    		myC.a = UnityEngine.Random.Range(0.2f, 0.9f);
+    		sr.color = myC;
+
+    		//pick speed
+    		cloudBS.speed = UnityEngine.Random.Range(0.001f, 0.005f);
+
+    		//pick location
+    		cloudBS.mypos = new Vector2(-25f, UnityEngine.Random.Range(0.2f, 10f));
+        }
+    }
+
     void addFrog(Vector3 pos, bool directionIsRight){
       	GameObject myfrog = Instantiate(Resources.Load("frog")) as GameObject;
       	myfrog.transform.position = pos;
@@ -61,8 +116,15 @@ public class WorldScript : MonoBehaviour {
         frogBS.directionIsRight = directionIsRight;
     }
 
+    void addBird(Vector3 pos, bool directionIsRight){
+      	GameObject mybird = Instantiate(Resources.Load("bird")) as GameObject;
+      	mybird.transform.position = pos;
+        BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
+        birdBS.directionIsRight = directionIsRight;
+    }
+
     // Update is called once per frame
-    void Update () {
+    void FixedUpdate () {
 
     }
 }

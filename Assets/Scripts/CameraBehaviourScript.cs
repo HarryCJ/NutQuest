@@ -15,7 +15,7 @@ public class CameraBehaviourScript : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         position.x = player.transform.position.x;
 		if (position.x > 10){
