@@ -61,11 +61,14 @@
      <Compile Include="Assets\Scripts\Frog\frog_top_collider_script.cs" />
      <Compile Include="Assets\Scripts\NutBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\NutSpawnerBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Player\player_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Player\player_surrounding_collider_script.cs" />
+     <Compile Include="Assets\Scripts\PolygonCollider2DEditor.cs" />
      <Compile Include="Assets\Scripts\ShadowBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\SparkleBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\ToadBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\WorldScript.cs" />
      <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample05.cs" />
      <Compile Include="Assets\SpriteMask\Examples\Scripts\SpriteMaskExample06.cs" />

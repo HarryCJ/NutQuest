@@ -17,16 +17,28 @@ public class frog_tongue_end_script : MonoBehaviour {
 
 	}
 
+	bool pickupValid(Collider2D other){
+		return (other.tag.Contains("pickup") && parent.withdrawing == false && parent.thrustTimer > 0);
+	}
+
+	bool playerValid(Collider2D other){
+		return (other.name == "player" && parent.withdrawing == false && parent.thrustTimer > 0);
+	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.tag.Contains("pickup") && parent.withdrawing == false && parent.thrustTimer > 0){
+		if (pickupValid(other)){
 			parent.withdraw(other);
+		} else if (playerValid(other)){
+			parent.hitPlayer();
 		}
     }
     void OnTriggerStay2D(Collider2D other)
     {
-		if (other.tag.Contains("pickup") && parent.withdrawing == false && parent.thrustTimer > 0){
+		if (pickupValid(other)){
 			parent.withdraw(other);
+		} else if (playerValid(other)){
+			parent.hitPlayer();
 		}
     }
     void OnTriggerExit2D(Collider2D other)

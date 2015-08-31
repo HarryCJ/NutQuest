@@ -15,8 +15,16 @@ public class frog_tongue_script : MonoBehaviour {
 
 	float dirMultiplier = 1f;
 
+    GameObject player;
+    PlayerBehaviourScript playerBS;
+	Rigidbody2D playerRB;
+
 	// Use this for initialization
 	void Start () {
+
+		player = GameObject.Find("player");
+		playerBS = player.GetComponent<PlayerBehaviourScript>();
+		playerRB = player.GetComponent<Rigidbody2D>();
 
 		parent = transform.parent.gameObject.transform.parent.gameObject.GetComponent<FrogBehaviourScript>();
 		mycollider = GetComponent<BoxCollider2D>();
@@ -35,78 +43,26 @@ public class frog_tongue_script : MonoBehaviour {
 		float posX = transform.position.x;
 		float parentPosX = parent.gameObject.transform.position.x;
 
-		//thrusting tongue
-		// if (thrustTimer > 0){
-		// 	myrigidbody.AddForce(new Vector2(100f * dirMultiplier, 0f), ForceMode2D.Impulse);
-		// 	thrustTimer--;
-		// }
-		// //not thrusting tongue
-		// else if (dirMultiplier == 1 && (withdrawing == true || posX >= parentPosX)){
-		// 	withdrawing = true;
-		// 	myrigidbody.AddForce(new Vector2(-60f, 0f), ForceMode2D.Impulse);
-		// 	if (pickup != null){
-		// 		pickup.gameObject.transform.position = new Vector2(posX, transform.position.y);
-		// 	}
-		// } else if (dirMultiplier == -1 && (withdrawing == true || posX <= parentPosX)){
-		// 	withdrawing = true;
-		// 	myrigidbody.AddForce(new Vector2(60f, 0f), ForceMode2D.Impulse);
-		// 	if (pickup != null){
-		// 		pickup.gameObject.transform.position = new Vector2(posX, transform.position.y);
-		// 	}
-		// }
-		//
-		// //detect end of lick
-		// if (dirMultiplier == 1 && posX < parentPosX - 0.1f){
-		// 	if (pickup != null){
-		// 		Destroy(pickup.gameObject);
-		// 	}
-		// 	if (withdrawing == true){
-		// 		withdrawing = false;
-		// 		parent.canLick = false;
-		// 		parent.isLicking = false;
-		// 	}
-		// } else if (dirMultiplier == -1 && posX > parentPosX + 0.1f){
-		// 	if (pickup != null){
-		// 		Destroy(pickup.gameObject);
-		// 	}
-		// 	if (withdrawing == true){
-		// 		withdrawing = false;
-		// 		parent.canLick = false;
-		// 		parent.isLicking = false;
-		// 	}
-		// }
-		//
-		// // if (thrustTimer == 0 && withdrawing == false){
-		// // 	withdrawing = true;
-		// // }
-		//
-		// //max lick distance
-		// if (dirMultiplier == 1 && posX > parentPosX + 3f){
-		// 	posX = parentPosX + 3f;
-		// 	thrustTimer = 0;
-		// 	withdrawing = true;
-		// } else if (dirMultiplier == -1 && posX < parentPosX - 3f){
-		// 	posX = parentPosX - 3f;
-		// 	thrustTimer = 0;
-		// 	withdrawing = true;
-		// }
-		//
 		//Get width of tongue
 		float relPosX = (posX-parentPosX) / 10;
 		// Debug.Log(relPosX);
 
 		if (thrustTimer > 0){
 			// Debug.Log("thrusting");
-
-			if ( (dirMultiplier == 1f && relPosX < 0.33f) || (dirMultiplier == -1f && relPosX > -0.33f) ){
+			// Debug.Log(transform.position.y);
+			// if ( (dirMultiplier == 1f && relPosX < 0.33f) || (dirMultiplier == -1f && relPosX > -0.33f) ){
 				// myrigidbody.AddForce(new Vector2(100f * dirMultiplier, 0f), ForceMode2D.Impulse);
-				transform.position = new Vector2(transform.position.x+(0.25f*dirMultiplier), transform.position.y);
+			if (pickup == null){
+				transform.position = new Vector2(transform.position.x+(0.15f*dirMultiplier), transform.position.y);
 			} else {
-				// myrigidbody.velocity=Vector3.zero;
-				parent.isLicking = false;
-				withdrawing = true;
-				thrustTimer = 0;
+				transform.position = new Vector2(transform.position.x+(0.02f*dirMultiplier), transform.position.y);
 			}
+			// } else {
+				// myrigidbody.velocity=Vector3.zero;
+				// parent.isLicking = false;
+				// withdrawing = true;
+				// thrustTimer = 0;
+			// }
 
 			thrustTimer--;
 		} else {
@@ -115,21 +71,24 @@ public class frog_tongue_script : MonoBehaviour {
 			if ( (dirMultiplier == 1f && relPosX > 0) || (dirMultiplier == -1f && relPosX < 0) ){
 				// Debug.Log("tongue still out");
 				// myrigidbody.AddForce(new Vector2(-100f * dirMultiplier, 0f), ForceMode2D.Impulse);
-				transform.position = new Vector2(transform.position.x+(-0.25f*dirMultiplier), transform.position.y);
+				transform.position = new Vector2(transform.position.x+(-0.1f*dirMultiplier), transform.position.y);
 			} else {
 				// Debug.Log("tongue is back");
 				// myrigidbody.velocity=Vector3.zero;
 				parent.isLicking = false;
 				withdrawing = false;
+				parent.tongue_mask.gameObject.SetActive(false);
+				parent.canLick = false;
 			}
 		}
 
-		transform.position = new Vector2(transform.position.x, parent.transform.position.y);
+		// transform.position = new Vector2(transform.position.x, parent.transform.position.y);
 		if (pickup != null){
 			pickup.gameObject.transform.position = new Vector2(posX, transform.position.y);
-			if ( (dirMultiplier == 1f && relPosX < 0.05f) || (dirMultiplier == -1f && relPosX > -0.05f) ){
+			if ( (dirMultiplier == 1f && relPosX < parent.getEatPickupCutoff()) || (dirMultiplier == -1f && relPosX > (parent.getEatPickupCutoff() * -1f)) ){
 				Destroy(pickup.gameObject);
 				parent.isLicking = false;
+				parent.tongue_mask.gameObject.SetActive(false);
 				parent.canLick = false;
 			}
 		}
@@ -154,7 +113,7 @@ public class frog_tongue_script : MonoBehaviour {
 
 	public void thrust(){
 		// Debug.Log("thrust fn");
-		thrustTimer = 15;
+		thrustTimer = parent.getThrustTimer();
 		withdrawing = false;
 	}
 
@@ -162,7 +121,21 @@ public class frog_tongue_script : MonoBehaviour {
 		// Debug.Log("withdraw fn");
 		pickup = other;
 		// Physics2D.IgnoreCollision(other, parentcollider);
-		thrustTimer = 0;
+		// thrustTimer = 0;
 		withdrawing = true;
+	}
+
+	public void hitPlayer(){
+
+		if (playerBS.isProtected == false){
+			playerBS.getHit(parent.directionIsRight);
+			GameObject mynut = null;
+			mynut = Instantiate(Resources.Load("nut")) as GameObject;
+			mynut.transform.position = new Vector2(transform.position.x, transform.position.y);
+			BoxCollider2D nutcollider = mynut.GetComponent<BoxCollider2D>();
+			withdraw(nutcollider);
+		}
+
+		// playerRB.AddForce(new Vector2(200f, 100f), ForceMode2D.Impulse);
 	}
 }

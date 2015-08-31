@@ -16,15 +16,19 @@ public class frog_tongue_area_collider_script : MonoBehaviour {
 
 	}
 
+	bool tongueAreaValid(Collider2D other){
+		return (other.tag.Contains("pickup") || other.name == "player");
+	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.tag.Contains("pickup")){
+		if (tongueAreaValid(other)){
 	        parent.canLick = true;
 		}
     }
     void OnTriggerStay2D(Collider2D other)
     {
-		if (other.tag.Contains("pickup")){
+		if (tongueAreaValid(other)){
 	        parent.canLick = true;
 		}
     }

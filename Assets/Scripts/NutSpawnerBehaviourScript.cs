@@ -26,6 +26,7 @@ public class NutSpawnerBehaviourScript : MonoBehaviour {
         while (true)
         {
             float delay = UnityEngine.Random.Range(0.5f, 3);
+            // delay = UnityEngine.Random.Range(0.5f, 0.5f);
             yield return new WaitForSeconds(delay);
 
 			//get random vector

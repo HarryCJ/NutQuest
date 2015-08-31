@@ -17,15 +17,22 @@ public class bird_top_collider_script : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        if (parent.isCarrying == true && playerBS.isJumping == true){
-            parent.die();
-        }
+        // if (parent.isCarrying == true && playerBS.isJumping == true){
+        //     parent.die();
+        // }
 	}
+
+    bool carryingValid(Collider2D other){
+        return (other.gameObject.transform.name == "player" || other.gameObject.transform.tag.Contains("pickup"));
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.gameObject.transform.name == "player" || other.gameObject.transform.tag.Contains("pickup")){
-			parent.isCarrying = true;
+		if (carryingValid(other)){
+            if (parent.isCarrying == false){
+                parent.isCarrying = true;
+                parent.maxFlightHeight += 3;
+            }
 		}
 		// if (other.gameObject.transform.name == "player" && playerBS.isJumping == false){
         //     // playerBS.boost();
@@ -39,8 +46,11 @@ public class bird_top_collider_script : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D other)
     {
-		if (other.gameObject.transform.name == "player" || other.gameObject.transform.tag.Contains("pickup")){
-			parent.isCarrying = true;
+		if (carryingValid(other)){
+            if (parent.isCarrying == false){
+                parent.isCarrying = true;
+                parent.maxFlightHeight += 3;
+            }
 		}
 		// if (other.gameObject.transform.name == "player" && playerBS.isJumping == false){
         //     // playerBS.boost();
@@ -54,8 +64,11 @@ public class bird_top_collider_script : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D other)
     {
-		if (other.gameObject.transform.name == "player" || other.gameObject.transform.tag.Contains("pickup")){
-			parent.isCarrying = false;
+		if (carryingValid(other)){
+            if (parent.isCarrying == true){
+                parent.isCarrying = false;
+                parent.maxFlightHeight -= 3;
+            }
 		}
         // parent.die();
     }

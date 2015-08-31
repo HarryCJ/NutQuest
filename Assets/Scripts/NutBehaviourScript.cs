@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class NutBehaviourScript : MonoBehaviour {
+public class NutBehaviourScript : Pickup {
 
     Rigidbody2D myrigidbody;
 
@@ -19,9 +19,13 @@ public class NutBehaviourScript : MonoBehaviour {
 
     IEnumerator grow(){
 
-        float delay = UnityEngine.Random.Range(2f, 10);
+        float delay = UnityEngine.Random.Range(8f, 20f);
         yield return new WaitForSeconds(delay);
         myrigidbody.isKinematic = false;
+    }
+
+    public override int getNutPoints(){
+        return 1;
     }
 
 }

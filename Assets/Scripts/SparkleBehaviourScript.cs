@@ -14,7 +14,7 @@ public class SparkleBehaviourScript : MonoBehaviour {
 	void FixedUpdate () {
 		dieTimer++;
 
-		if (dieTimer > 15){
+		if (dieTimer > 30){
 			Destroy(gameObject);
 		}
 	}

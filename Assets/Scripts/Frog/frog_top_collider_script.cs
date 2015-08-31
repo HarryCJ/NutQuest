@@ -4,15 +4,11 @@ using System.Collections;
 public class frog_top_collider_script : MonoBehaviour {
 
     FrogBehaviourScript parent;
-    GameObject player;
-    PlayerBehaviourScript playerBS;
     public bool isCarrying = false;
 
     // Use this for initialization
     void Start () {
 		parent = transform.parent.gameObject.GetComponent<FrogBehaviourScript>();
-		player = GameObject.Find("player");
-		playerBS = player.GetComponent<PlayerBehaviourScript>();
 	}
 
 	// Update is called once per frame
@@ -58,7 +54,7 @@ public class frog_top_collider_script : MonoBehaviour {
     void die(){
 
         parent.die();
-        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), parent.GetComponent<Collider2D>());
+        // Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), parent.GetComponent<Collider2D>());
         Destroy(this);
     }
 }

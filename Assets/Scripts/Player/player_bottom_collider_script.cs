@@ -44,11 +44,14 @@ public class player_bottom_collider_script : MonoBehaviour {
 	// If a new enemy enters the trigger, add it to the list of targets
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag.Contains("phys") || other.tag.Contains("env")){
-	    	parent.isGrounded = true;
-	        GameObject go = other.gameObject;
-	        if(!targets.Contains(go)){
-	            targets.Add(go);
-	        }
+			if (parent.isGrounded == false){
+				parent.isBoosting = false;
+		    	parent.isGrounded = true;
+		        GameObject go = other.gameObject;
+		        if(!targets.Contains(go)){
+		            targets.Add(go);
+		        }
+			}
 	    }
 	}
 

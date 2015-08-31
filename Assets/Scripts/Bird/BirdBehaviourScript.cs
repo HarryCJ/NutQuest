@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BirdBehaviourScript : MonoBehaviour {
+public class BirdBehaviourScript : Enemy {
 
 	BoxCollider2D mycollider;
 	Rigidbody2D myrigidbody;
@@ -11,15 +11,48 @@ public class BirdBehaviourScript : MonoBehaviour {
 	float dirMultiplier = 1f;
 	public bool directionIsRight = true;
 	public bool isCarrying = false;
-	public bool isDead = false;
 	public bool isGrounded = false;
+
+	public float maxFlightHeight = 4f;
+
+	bird_bottom_collider_script bird_bottom_collider_s;
+
+	BoxCollider2D bird_bottom_collider;
+
 
 	// Use this for initialization
 	void Start () {
 
+		maxFlightHeight = UnityEngine.Random.Range(0f, 15f);
+
 		mycollider = GetComponent<BoxCollider2D>();
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        foreach (Transform child in transform){
+            // if (child.name == "frog_tongue_mask"){
+            //      tongue_mask = child;
+		    //      foreach (Transform child2 in tongue_mask){
+			// 		 tongue = child2.GetComponent<frog_tongue_script>();
+			//          foreach (Transform child3 in child2){
+			// 		 	tongue_end = child3.GetComponent<frog_tongue_end_script>();
+			// 			tongue_end_collider = child3.GetComponent<Collider2D>();
+			// 		}
+			// 	 }
+            // } else if (child.name == "frog_tongue_area_collider"){
+			// 	tongue_area = child.GetComponent<frog_tongue_area_collider_script>();
+			// 	tongue_area_collider = child.GetComponent<Collider2D>();
+			//
+			// } else if (child.name == "frog_top_collider"){
+			// 	frog_top_collider_s = child.GetComponent<frog_top_collider_script>();
+			// 	frog_top_collider = child.GetComponent<Collider2D>();
+
+			// } else
+			if (child.name == "bird_bottom_collider"){
+				bird_bottom_collider_s = child.GetComponent<bird_bottom_collider_script>();
+				bird_bottom_collider = child.GetComponent<BoxCollider2D>();
+
+			}
+        }
 
 	}
 
@@ -35,7 +68,7 @@ public class BirdBehaviourScript : MonoBehaviour {
 		}
 
 		if (isDead == false){
-			if (flapDelay <= 0){
+			if (flapDelay <= 0 && myrigidbody.velocity.y <= 0f){
 
 				float forceY = 0f;
 				float forceX = 0f;
@@ -50,31 +83,31 @@ public class BirdBehaviourScript : MonoBehaviour {
 				//
 				// } else
 
-					if (transform.position.y < 4f){
+				if (transform.position.y < maxFlightHeight ){
 
-					forceX = UnityEngine.Random.Range(1f, 3f);
+					forceX = UnityEngine.Random.Range(10f, 10f);
 
-					if (transform.position.y < -2f){
+					if (transform.position.y < maxFlightHeight - 6f){
 
 						flapDelay = 15;
-						forceY = UnityEngine.Random.Range(35f, 40f);
+						forceY = UnityEngine.Random.Range(800f, 800f);
 
-					} else if (transform.position.y < 0f){
+					} else if (transform.position.y < maxFlightHeight - 4f){
+
+						flapDelay = 17;
+						forceY = UnityEngine.Random.Range(750f, 750f);
+
+					} else if (transform.position.y < maxFlightHeight - 2f){
 
 						flapDelay = 20;
-						forceY = UnityEngine.Random.Range(30f, 35f);
-
-					} else if (transform.position.y < 2f){
-
-						flapDelay = 25;
-						forceY = UnityEngine.Random.Range(25f, 30f);
+						forceY = UnityEngine.Random.Range(700f, 700f);
 
 					}
 
 					if (isCarrying == true){
-						flapDelay = flapDelay / 2;
-						forceY = forceY * 10f;
-						forceX = forceX * 10f;
+						flapDelay = flapDelay / 4;
+						forceY = forceY * 30f;
+						forceX = forceX * 30f;
 					}
 					// Debug.Log(forceY);
 
@@ -118,7 +151,26 @@ public class BirdBehaviourScript : MonoBehaviour {
 
 	}
 
-	public void die(){
-		isDead = true;
-	}
+	// public void die(){
+	// 	isDead = true;
+	// }
+
+	public override void die(){
+		if (isDead == false){
+	        isDead = true;
+	        // mycollider.size = new Vector2(0.09f, 0.1f);
+	        // mycollider.offset = new Vector2(0f, 0.0f);
+	        mycollider.offset = new Vector2(0f, -0.045f);
+	        mycollider.size = new Vector2(0.07f, 0.01f);
+	        bird_bottom_collider.size = new Vector2(0.09f, 0.01f);
+	        bird_bottom_collider.offset = new Vector2(0.0f, -0.055f);
+	        StartCoroutine(dieDelay());
+	        // Destroy(gameObject);
+		}
+    }
+
+	IEnumerator dieDelay(){
+        yield return new WaitForSeconds(5);
+		Destroy(gameObject);
+    }
 }

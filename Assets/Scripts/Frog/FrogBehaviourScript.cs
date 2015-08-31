@@ -11,7 +11,7 @@ public class FrogBehaviourScript : Enemy
     public bool directionIsRight = true;
 
     public bool isJumping = false;
-	public bool isDead = false;
+	// public bool isDead = false;
     int jumpingTimer = -1;
     int lastJump = 0;
 	System.Random random;
@@ -26,7 +26,7 @@ public class FrogBehaviourScript : Enemy
     BoxCollider2D mycollider;
     Rigidbody2D myrigidbody;
 
-	Transform tongue_mask;
+	public Transform tongue_mask;
 
 	frog_tongue_script tongue;
 	frog_tongue_end_script tongue_end;
@@ -39,8 +39,13 @@ public class FrogBehaviourScript : Enemy
 	Collider2D frog_top_collider;
 	Collider2D frog_bottom_collider;
 
+	public virtual void frogStart(){
+		// Debug.Log("ENEMY DIES!!!");
+	}
+
     // Use this for initialization
     void Start(){
+		Debug.Log("frog hello");
 
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -74,7 +79,13 @@ public class FrogBehaviourScript : Enemy
 		Physics2D.IgnoreCollision(tongue_end_collider, frog_top_collider);
 		Physics2D.IgnoreCollision(tongue_end_collider, frog_bottom_collider);
 		Physics2D.IgnoreCollision(tongue_end_collider, mycollider);
+
+		frogStart();
     }
+
+	public virtual void frogFixedUpdate(){
+		// Debug.Log("ENEMY DIES!!!");
+	}
 
     // Update is called once per frame
     void FixedUpdate()
@@ -89,24 +100,26 @@ public class FrogBehaviourScript : Enemy
         //     transform.localScale = new Vector3(-10, 10, 1);
         // }
 		//
-        // if (isJumping == true) {
-        //     if (jumpingTimer > 0) {
-        //         if (jumpingTimer < 5) {
-        //             velocity.y = 2f;
-        //         } else {
-        //             velocity.y = 5f;
-		// 			if (directionIsRight == true) {
-		// 	          velocity.x = 1f;
-		// 	        } else {
-		// 	          velocity.x = -1f;
-		// 	        }
-        //         }
-        //         jumpingTimer--;
-        //     } else if (isGrounded == true || jumpingTimer == 0) {
-        //         velocity.y = 0;
-        //         isJumping = false;
-        //     }
-        // }
+
+		if (jumpingTimer > 0)
+		{
+			velocity.x = (UnityEngine.Random.Range(400f, 600f) * dirMultiplier);
+			if (jumpingTimer < 10)
+			{
+				velocity.y = 20f;
+			}
+			else
+			{
+				velocity.y = 100f;
+			}
+			myrigidbody.AddForce(velocity, ForceMode2D.Impulse);
+			jumpingTimer--;
+		}
+		else if (isGrounded == true || jumpingTimer == 0)
+		{
+			velocity.y = 0;
+			isJumping = false;
+		}
 
 		if (directionIsRight){ //is right
 			dirMultiplier = 1f;
@@ -121,8 +134,16 @@ public class FrogBehaviourScript : Enemy
 		}
 
         if (isGrounded == true && isDead == false && isLicking == false) {
-			if (canLick == true){
+			if (((directionIsRight == false && transform.position.x < -10f) || (directionIsRight == true && transform.position.x > 10f)) &&
+					UnityEngine.Random.Range(0, 800) == 0){
+				if (directionIsRight == true){
+					directionIsRight = false;
+				} else {
+					directionIsRight = true;
+				}
+			} else if (canLick == true && isLicking == false){
 
+				tongue_mask.gameObject.SetActive(true);
 				isLicking = true;
 				tongue.thrust();
 
@@ -138,12 +159,12 @@ public class FrogBehaviourScript : Enemy
 
 			if (transform.position.y < 4f){
 
-				float forceY = UnityEngine.Random.Range(1000f, 1500f);
-				float forceX = UnityEngine.Random.Range(100f, 200f);
+				// float forceY = UnityEngine.Random.Range(1000f, 1500f);
 
 				jumpDelay = UnityEngine.Random.Range(100, 250);
 
-				myrigidbody.AddForce(new Vector2(forceX * dirMultiplier, forceY), ForceMode2D.Impulse);
+				// myrigidbody.AddForce(new Vector2(forceX * dirMultiplier, forceY), ForceMode2D.Impulse);
+				jumpingTimer = UnityEngine.Random.Range(15, 20);
 				isJumping = true;
 				//  else if (transform.position.y < 2f){
 				//
@@ -193,6 +214,8 @@ public class FrogBehaviourScript : Enemy
         // transform.Translate(velocity);
 		// myrigidbody.AddForce(new Vector2(velocity.x, velocity.y), ForceMode2D.Impulse);
 
+		frogFixedUpdate();
+
         animator.SetBool("isGrounded", isGrounded);
         animator.SetBool("isJumping", isJumping);
         animator.SetBool("isDead", isDead);
@@ -200,14 +223,20 @@ public class FrogBehaviourScript : Enemy
 
     }
 
-
 	public override void die(){
-		if (isDead == false){
+		Debug.Log("die");
+
+		lives--;
+		if (isDead == false && isProtected == false && lives <= 0){
 	        isDead = true;
-	        mycollider.size = new Vector2(0.12f, 0.04f);
-	        mycollider.offset = new Vector2(0f, -0.02f);
+	        // mycollider.size = new Vector2(0.12f, 0.04f);
+	        // mycollider.offset = new Vector2(0f, -0.02f);
+	        mycollider.offset = new Vector2(0f, -0.035f);
+	        mycollider.size = new Vector2(0.12f, 0.01f);
 	        StartCoroutine(dieDelay());
 	        // Destroy(gameObject);
+		} else {
+			StartCoroutine(protect());
 		}
     }
 
@@ -215,5 +244,13 @@ public class FrogBehaviourScript : Enemy
         yield return new WaitForSeconds(5);
 		Destroy(gameObject);
     }
+
+	public virtual int getThrustTimer() {
+      return 23;
+   }
+
+   public virtual float getEatPickupCutoff() {
+	 return 0.1f;
+  }
 
 }

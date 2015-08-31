@@ -12,4 +12,8 @@ public class AppleBehaviourScript : NutBehaviourScript {
 	// void FixedUpdate () {
 	//
 	// }
+
+    public override int getNutPoints(){
+        return 5;
+    }
 }

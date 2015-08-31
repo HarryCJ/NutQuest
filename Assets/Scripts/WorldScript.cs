@@ -41,6 +41,7 @@ public class WorldScript : MonoBehaviour {
         while (true)
         {
             float delay = UnityEngine.Random.Range(5f, 10f);
+            // delay = UnityEngine.Random.Range(0.5f, 0.5f);
             yield return new WaitForSeconds(delay);
 
             if (UnityEngine.Random.Range(0, 2) == 0){
@@ -61,6 +62,7 @@ public class WorldScript : MonoBehaviour {
         while (true)
         {
             float delay = UnityEngine.Random.Range(6f, 10f);
+            // delay = UnityEngine.Random.Range(0.5f, 0.5f);
             yield return new WaitForSeconds(delay);
 
             if (UnityEngine.Random.Range(0, 2) == 0){
@@ -79,7 +81,7 @@ public class WorldScript : MonoBehaviour {
     {
         while (true)
         {
-            float delay = UnityEngine.Random.Range(5f, 10f);
+            float delay = UnityEngine.Random.Range(10f, 15f);
             yield return new WaitForSeconds(delay);
 
             GameObject mycloud = Instantiate(Resources.Load("cloud")) as GameObject;

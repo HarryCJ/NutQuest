@@ -18,10 +18,10 @@ public class CameraBehaviourScript : MonoBehaviour {
 	void FixedUpdate () {
 
         position.x = player.transform.position.x;
-		if (position.x > 10){
-            position.x = 10;
-        } else if (position.x < -10){
-            position.x = -10;
+		if (position.x > 15){
+            position.x = 15;
+        } else if (position.x < -15){
+            position.x = -15;
         }
 
 		transform.position = position;

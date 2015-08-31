@@ -13,7 +13,7 @@ public class ShadowBehaviourScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		Ray landingRay = new Ray();
+		// Ray landingRay = new Ray();
 		RaycastHit2D[] hits = Physics2D.RaycastAll(transform.parent.position, Vector3.down);
 		for (int i = 0; i < hits.Length; i++) {
             RaycastHit2D hit = hits[i];
