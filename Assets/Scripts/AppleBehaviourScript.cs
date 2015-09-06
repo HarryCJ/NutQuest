@@ -16,4 +16,8 @@ public class AppleBehaviourScript : NutBehaviourScript {
     public override int getNutPoints(){
         return 5;
     }
+
+	public override void nutStart(){
+        level = 2;
+    }
 }

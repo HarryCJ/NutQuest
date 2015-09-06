@@ -84,9 +84,10 @@ public class frog_tongue_script : MonoBehaviour {
 
 		// transform.position = new Vector2(transform.position.x, parent.transform.position.y);
 		if (pickup != null){
-			pickup.gameObject.transform.position = new Vector2(posX, transform.position.y);
+			pickup.gameObject.transform.position = new Vector2(posX, transform.position.y+0.45f);
 			if ( (dirMultiplier == 1f && relPosX < parent.getEatPickupCutoff()) || (dirMultiplier == -1f && relPosX > (parent.getEatPickupCutoff() * -1f)) ){
-				Destroy(pickup.gameObject);
+				parent.consume(pickup);
+				// Destroy(pickup.gameObject);
 				parent.isLicking = false;
 				parent.tongue_mask.gameObject.SetActive(false);
 				parent.canLick = false;
@@ -128,11 +129,18 @@ public class frog_tongue_script : MonoBehaviour {
 	public void hitPlayer(){
 
 		if (playerBS.isProtected == false){
-			playerBS.getHit(parent.directionIsRight);
 			GameObject mynut = null;
-			mynut = Instantiate(Resources.Load("nut")) as GameObject;
-			mynut.transform.position = new Vector2(transform.position.x, transform.position.y);
-			BoxCollider2D nutcollider = mynut.GetComponent<BoxCollider2D>();
+			if (parent.frogType == "frog"){
+				playerBS.getHit(1, parent.directionIsRight);
+				mynut = Instantiate(Resources.Load("Prefabs/nut")) as GameObject;
+			} if (parent.frogType == "toad"){
+				playerBS.getHit(5, parent.directionIsRight);
+				mynut = Instantiate(Resources.Load("Prefabs/apple")) as GameObject;
+			}
+			mynut.transform.position = new Vector2(transform.position.x, transform.position.y+0.45f);
+			Collider2D nutcollider = mynut.GetComponent<Collider2D>();
+			NutBehaviourScript nutBS = mynut.GetComponent<NutBehaviourScript>();
+			nutBS.isGrowing = false;
 			withdraw(nutcollider);
 		}
 

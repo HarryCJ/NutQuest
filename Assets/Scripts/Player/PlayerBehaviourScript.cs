@@ -21,8 +21,14 @@ public class PlayerBehaviourScript : MonoBehaviour {
 	public bool isBoosting;
 
 	public int nuts = 0;
-	GameObject nutCounterUIText;
-	Text nutCounterUITextText;
+	public int boostCombo = 1;
+
+
+    List<GameObject> nutCounterUIText  = new List<GameObject>();
+    List<Text> nutCounterUITextText  = new List<Text>();
+
+    List<GameObject> boostComboUIText  = new List<GameObject>();
+    List<Text> boostComboUITextText  = new List<Text>();
 
 	Transform player_surrounding_collider;
 	player_surrounding_collider_script player_surrounding_collider_s;
@@ -30,8 +36,25 @@ public class PlayerBehaviourScript : MonoBehaviour {
     // Use this for initialization
     void Start(){
 
-		nutCounterUIText = GameObject.Find("nutCounterUIText");
-		nutCounterUITextText = nutCounterUIText.GetComponent<Text>();
+		nutCounterUIText.Add(GameObject.Find("nutCounterUIText1"));
+		nutCounterUITextText.Add(nutCounterUIText[0].GetComponent<Text>());
+		nutCounterUIText.Add(GameObject.Find("nutCounterUIText1.5"));
+		nutCounterUITextText.Add(nutCounterUIText[1].GetComponent<Text>());
+		nutCounterUIText.Add(GameObject.Find("nutCounterUIText2"));
+		nutCounterUITextText.Add(nutCounterUIText[2].GetComponent<Text>());
+		nutCounterUIText.Add(GameObject.Find("nutCounterUIText2.5"));
+		nutCounterUITextText.Add(nutCounterUIText[3].GetComponent<Text>());
+		nutCounterUIText.Add(GameObject.Find("nutCounterUIText3"));
+		nutCounterUITextText.Add(nutCounterUIText[4].GetComponent<Text>());
+
+		boostComboUIText.Add(GameObject.Find("boostComboUITextX"));
+		boostComboUITextText.Add(boostComboUIText[0].GetComponent<Text>());
+		boostComboUIText.Add(GameObject.Find("boostComboUIText1"));
+		boostComboUITextText.Add(boostComboUIText[1].GetComponent<Text>());
+		boostComboUIText.Add(GameObject.Find("boostComboUIText2"));
+		boostComboUITextText.Add(boostComboUIText[2].GetComponent<Text>());
+		boostComboUIText.Add(GameObject.Find("boostComboUIText3"));
+		boostComboUITextText.Add(boostComboUIText[3].GetComponent<Text>());
 
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -76,18 +99,7 @@ public class PlayerBehaviourScript : MonoBehaviour {
                 isJumping = true;
                 jumpingTimer = 10;
 
-		        foreach (GameObject child in player_bottom_collider.targets){
-		            if (child != null && child.transform.tag.Contains("enemy")){
-						Enemy myEnemy = child.GetComponent<Enemy>();
-						if (myEnemy.isDead == false){
-							myEnemy.die();
-							if (myEnemy.isDead == true){
-				                jumpingTimer = 16;
-								isBoosting = true;
-							}
-						}
-					}
-				}
+		        tryBoost();
 
             }
             if (isRunning == false && (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
@@ -170,30 +182,217 @@ public class PlayerBehaviourScript : MonoBehaviour {
         tailAnimator.SetBool("isRunning", isRunning);
     }
 
+	public void resetBoostCombo(){
+
+		foreach (Text t in boostComboUITextText){
+			t.text = "";
+		}
+		boostCombo = 1;
+	}
+
 	public void addNutPoints(int num){
-		nuts += num;
-		nutCounterUITextText.text = nuts.ToString();
+		nuts += (num * boostCombo);
+        StartCoroutine(nutCounterTransition());
 	}
 
 	public void subtractNutPoints(int num){
 		nuts -= num;
-		nutCounterUITextText.text = nuts.ToString();
+        StartCoroutine(nutCounterTransition());
+	}
+
+	IEnumerator nutCounterTransition(){
+
+		foreach (Text t in nutCounterUITextText){
+			t.text = "";
+		}
+
+		string nutString = nuts.ToString();
+		if (nutString.Length == 1){
+			nutCounterUITextText[2].text = nutString;
+		} else if (nutString.Length == 2){
+			nutCounterUITextText[1].text = nutString.Substring(0, 1);
+			nutCounterUITextText[3].text = nutString.Substring(1, 1);
+		} else if (nutString.Length == 3){
+			nutCounterUITextText[0].text = nutString.Substring(0, 1);
+			nutCounterUITextText[2].text = nutString.Substring(1, 1);
+			nutCounterUITextText[4].text = nutString.Substring(2, 1);
+		}
+
+		// nutCounterUITextText[2].fontSize = 100;
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 80;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 84;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 88;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 92;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 96;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 100;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 96;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 92;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 88;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 84;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in nutCounterUITextText){
+			t.fontSize = 80;
+		}
+	}
+
+	public void tryBoost(){
+
+		// if (lastBoost == 0){
+		// 	Debug.Log("boost");
+	    //     isJumping = true;
+	    //     jumpingTimer = 15;
+	    //     lastBoost = 15;
+		// 	velocity.y = 0.2f;
+		// }
+
+		for (int x = 0; x < player_bottom_collider.targets.Count; x++) {
+		// foreach (GameObject child in player_bottom_collider.targets){
+			GameObject child = player_bottom_collider.targets[x];
+			if (child != null && child.transform.tag.Contains("enemy")){
+				Enemy myEnemy = child.GetComponent<Enemy>();
+				player_bottom_collider.targets.Remove(child);
+				if (myEnemy.isDead == false){
+					isJumping = true;
+					myEnemy.die();
+					if (myEnemy.isDead == true){
+						if (boostCombo > 1){
+							addPointsAndSparkle(myEnemy.nutPoints, child);
+						}
+						boost();
+					}
+				}
+			}
+		}
+    }
+
+	public void addPointsAndSparkle(int num, GameObject child){
+
+		addNutPoints(num);
+
+		GameObject mynutmarker = Instantiate(Resources.Load("Prefabs/nut_point_marker")) as GameObject;
+		TextMesh nutText = mynutmarker.GetComponent<TextMesh>();
+		nutText.text = "+"+(num * boostCombo).ToString();
+		mynutmarker.transform.position = new Vector2(child.transform.position.x+0.5f, child.transform.position.y+0.5f);
+
+		GameObject mysparkle = Instantiate(Resources.Load("Prefabs/sparkle")) as GameObject;
+		mysparkle.transform.position = new Vector2(child.transform.position.x, child.transform.position.y-0.45f);
+		mysparkle.GetComponent<Rigidbody2D>().velocity = child.GetComponent<Rigidbody2D>().velocity;
 	}
 
 	public void boost(){
 
-		if (lastBoost == 0){
-			Debug.Log("boost");
-	        isJumping = true;
-	        jumpingTimer = 15;
-	        lastBoost = 15;
-			velocity.y = 0.2f;
-		}
-    }
+		boostCombo += 1;
+		jumpingTimer = 16;
+		isBoosting = true;
+        StartCoroutine(boostComboTransition());
 
-	public void getHit(bool forceIsRight){
+	}
+
+	IEnumerator boostComboTransition(){
+
+		foreach (Text t in boostComboUITextText){
+			t.text = "";
+		}
+		boostComboUITextText[0].text = "x";
+
+		string boostString = boostCombo.ToString();
+		if (boostString.Length == 1){
+			boostComboUITextText[1].text = boostString;
+		} else if (boostString.Length == 2){
+			boostComboUITextText[1].text = boostString.Substring(0, 1);
+			boostComboUITextText[2].text = boostString.Substring(1, 1);
+		} else if (boostString.Length == 3){
+			boostComboUITextText[1].text = boostString.Substring(0, 1);
+			boostComboUITextText[2].text = boostString.Substring(1, 1);
+			boostComboUITextText[3].text = boostString.Substring(2, 1);
+		}
+
+		// boostComboUITextText[2].fontSize = 100;
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 80;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 84;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 88;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 92;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 96;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 100;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 96;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 92;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 88;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 84;
+		}
+        yield return new WaitForSeconds(0.005f);
+		foreach (Text t in boostComboUITextText){
+			t.fontSize = 80;
+		}
+	}
+
+	public void getHit(int damage, bool forceIsRight){
         StartCoroutine(protect());
-		subtractNutPoints(1);
+		subtractNutPoints(damage);
+
+		GameObject mynutmarker = Instantiate(Resources.Load("Prefabs/nut_point_marker")) as GameObject;
+		TextMesh nutText = mynutmarker.GetComponent<TextMesh>();
+		Rigidbody2D nutrigidbody = mynutmarker.GetComponent<Rigidbody2D>();
+		nutrigidbody.gravityScale = 1f;
+		nutText.text = "-"+(damage).ToString();
+		mynutmarker.transform.position = new Vector2(transform.position.x+0.5f, transform.position.y+0.5f);
+
 		float forceMultiplier = 1f;
 		if (forceIsRight == false){
 			forceMultiplier = -1f;

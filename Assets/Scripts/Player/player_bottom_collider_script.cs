@@ -48,9 +48,29 @@ public class player_bottom_collider_script : MonoBehaviour {
 				parent.isBoosting = false;
 		    	parent.isGrounded = true;
 		        GameObject go = other.gameObject;
-		        if(!targets.Contains(go)){
+		        if(!targets.Contains(go) && other.tag.Contains("enemy")){
 		            targets.Add(go);
-		        }
+					Enemy myEnemy = go.GetComponent<Enemy>();
+					if (myEnemy.isBouncy == true){
+						parent.tryBoost();
+					}
+		        } else if (other.tag.Contains("env")){
+					parent.resetBoostCombo();
+				}
+
+		        // foreach (GameObject child in targets){
+		        //     if (child != null && child.transform.tag.Contains("enemy")){
+				// 		Enemy myEnemy = child.GetComponent<Enemy>();
+				// 		if (myEnemy.isDead == false){
+				// 			parent.isJumping = true;
+				// 			myEnemy.die();
+				// 			if (myEnemy.isDead == true){
+				//                 parent.jumpingTimer = 16;
+				// 				parent.isBoosting = true;
+				// 			}
+				// 		}
+				// 	}
+				// }
 			}
 	    }
 	}
@@ -58,9 +78,11 @@ public class player_bottom_collider_script : MonoBehaviour {
 	// When an enemy exits the trigger, remove it from the list
 	void OnTriggerExit2D(Collider2D other){
 		if (other.tag.Contains("phys") || other.tag.Contains("env")){
-	    	parent.isGrounded = false;
-	      GameObject go = other.gameObject;
-	      targets.Remove(go);
+			parent.isGrounded = false;
+			GameObject go = other.gameObject;
+			if(targets.Contains(go)){
+				targets.Remove(go);
+			}
 	    }
 	}
 

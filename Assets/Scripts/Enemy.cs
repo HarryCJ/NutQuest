@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour {
 	public bool isDead = false;
 	public bool isProtected = false;
 	public int lives = 1;
+	public bool isBouncy = true;
+	public int nutPoints = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +38,12 @@ public class Enemy : MonoBehaviour {
 		sr.enabled = true;
 
 		isProtected = false;
+    }
+
+	public IEnumerator dieDelay(){
+		Physics2D.IgnoreCollision(GameObject.Find("player").GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        yield return new WaitForSeconds(5);
+		Destroy(gameObject);
     }
 
 }

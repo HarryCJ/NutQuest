@@ -18,18 +18,17 @@ public class player_surrounding_collider_script : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 		if (other.tag.Contains("pickup")){
-			GameObject mysparkle = Instantiate(Resources.Load("sparkle")) as GameObject;
-			mysparkle.transform.position = other.transform.position;
+			// parent.createSparkle(other.gameObject);
 			Pickup myPickup = other.GetComponent<Pickup>();
-			parent.addNutPoints(myPickup.getNutPoints());
+			parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
+			// parent.addNutPoints(myPickup.getNutPoints());
 			Destroy(other.gameObject);
 		}
     }
     void OnTriggerStay2D(Collider2D other)
     {
 		if (other.tag.Contains("pickup")){
-			GameObject mysparkle = Instantiate(Resources.Load("sparkle")) as GameObject;
-			mysparkle.transform.position = other.transform.position;
+			// parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
 			Destroy(other.gameObject);
 		}
     }

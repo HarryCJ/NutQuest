@@ -34,7 +34,7 @@ public class NutSpawnerBehaviourScript : MonoBehaviour {
 			bool foundV = false;
             Vector3 newV = new Vector3();
             while (foundV == false){
-                newV = new Vector3(UnityEngine.Random.Range(-16f, 16f), UnityEngine.Random.Range(0f, 22f), 0f);
+                newV = new Vector3(UnityEngine.Random.Range(-16f, 16f), UnityEngine.Random.Range(0f, 22f), 0);
 
                 if (mycollider.OverlapPoint(newV)){
 					foundV = true;
@@ -51,10 +51,10 @@ public class NutSpawnerBehaviourScript : MonoBehaviour {
         GameObject mynut = null;
         if (UnityEngine.Random.Range(0, 20) == 0)
         {
-            mynut = Instantiate(Resources.Load("apple")) as GameObject;
+            mynut = Instantiate(Resources.Load("Prefabs/apple")) as GameObject;
         } else
         {
-            mynut = Instantiate(Resources.Load("nut")) as GameObject;
+            mynut = Instantiate(Resources.Load("Prefabs/nut")) as GameObject;
         }
         mynut.transform.position = pos;
     }

@@ -17,7 +17,10 @@ public class ToadBehaviourScript : FrogBehaviourScript {
 
 	public override void frogStart(){
 		Debug.Log("toad hello");
-		lives = 2;
+		lives = 3;
+		isBouncy = false;
+		frogType = "toad";
+		nutPoints = 3;
 
 		current_collider = GetComponent<PolygonCollider2D>();
 
@@ -45,6 +48,26 @@ public class ToadBehaviourScript : FrogBehaviourScript {
 			current_collider.offset = dead_collider.offset;
 		}
 	}
+
+	public override void frogConsume(Collider2D pickup){
+
+		if (directionIsRight == true){
+			fartFrog(new Vector3(transform.position.x-1.6f, transform.position.y), false);
+		} else {
+			fartFrog(new Vector3(transform.position.x+1.6f, transform.position.y), true);
+		}
+
+    }
+
+	void fartFrog(Vector3 pos, bool directionIsRight){
+      	GameObject myfrog = Instantiate(Resources.Load("Prefabs/frog")) as GameObject;
+      	myfrog.transform.position = pos;
+        FrogBehaviourScript frogBS = myfrog.GetComponent<FrogBehaviourScript>();
+        frogBS.directionIsRight = directionIsRight;
+		frogBS.jumpingTimer = 15;
+		frogBS.isJumping = true;
+
+    }
 
 	// void Start(){
 	//

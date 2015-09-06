@@ -19,9 +19,10 @@ public class BirdBehaviourScript : Enemy {
 
 	BoxCollider2D bird_bottom_collider;
 
-
 	// Use this for initialization
 	void Start () {
+
+		nutPoints = 1;
 
 		maxFlightHeight = UnityEngine.Random.Range(0f, 15f);
 
@@ -68,6 +69,30 @@ public class BirdBehaviourScript : Enemy {
 		}
 
 		if (isDead == false){
+
+			RaycastHit2D[] hits = null;
+			if (directionIsRight == true){
+				hits = Physics2D.RaycastAll(transform.position, Vector3.right);
+			} else {
+				hits = Physics2D.RaycastAll(transform.position, Vector3.left);
+			}
+			for (int i = 0; i < hits.Length; i++) {
+	            RaycastHit2D hit = hits[i];
+				if (hit.collider.name != transform.name && hit.collider.tag.Contains("phys")){
+					if (hit.transform.position.y > transform.position.y && transform.position.y > -2f){
+						maxFlightHeight-=0.05f;
+					} else if (transform.position.y < 20f) {
+						maxFlightHeight+=0.1f;
+					}
+					// float dif = transform.parent.position.y - hit.point.y;
+					// transform.position = new Vector2(transform.parent.position.x, hit.point.y);
+					// transform.rotation = Quaternion.Euler(transform.parent.rotation.x, transform.parent.rotation.x, -transform.parent.rotation.z);
+					// Color myC = sr.color;
+		    		// myC.a = 0.3f-(dif/30);
+		    		// sr.color = myC;
+				}
+			}
+
 			if (flapDelay <= 0 && myrigidbody.velocity.y <= 0f){
 
 				float forceY = 0f;
@@ -167,10 +192,5 @@ public class BirdBehaviourScript : Enemy {
 	        StartCoroutine(dieDelay());
 	        // Destroy(gameObject);
 		}
-    }
-
-	IEnumerator dieDelay(){
-        yield return new WaitForSeconds(5);
-		Destroy(gameObject);
     }
 }

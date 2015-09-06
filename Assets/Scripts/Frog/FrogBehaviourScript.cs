@@ -12,7 +12,7 @@ public class FrogBehaviourScript : Enemy
 
     public bool isJumping = false;
 	// public bool isDead = false;
-    int jumpingTimer = -1;
+    public int jumpingTimer = -1;
     int lastJump = 0;
 	System.Random random;
     Animator animator;
@@ -23,7 +23,7 @@ public class FrogBehaviourScript : Enemy
 	public bool canLick = false;
 	float dirMultiplier = 1f;
 
-    BoxCollider2D mycollider;
+    Collider2D mycollider;
     Rigidbody2D myrigidbody;
 
 	public Transform tongue_mask;
@@ -39,6 +39,14 @@ public class FrogBehaviourScript : Enemy
 	Collider2D frog_top_collider;
 	Collider2D frog_bottom_collider;
 
+	public string frogType = "frog";
+	public bool isEvolving = false;
+
+    GameObject player;
+    PlayerBehaviourScript playerBS;
+	Rigidbody2D playerRB;
+	Collider2D playercollider;
+
 	public virtual void frogStart(){
 		// Debug.Log("ENEMY DIES!!!");
 	}
@@ -46,11 +54,17 @@ public class FrogBehaviourScript : Enemy
     // Use this for initialization
     void Start(){
 		Debug.Log("frog hello");
+		nutPoints = 1;
+
+		player = GameObject.Find("player");
+		playerBS = player.GetComponent<PlayerBehaviourScript>();
+		playerRB = player.GetComponent<Rigidbody2D>();
+		playercollider = player.GetComponent<Collider2D>();
 
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 		random = new System.Random();
-        mycollider = GetComponent<BoxCollider2D>();
+        mycollider = GetComponent<Collider2D>();
         foreach (Transform child in transform){
             if (child.name == "frog_tongue_mask"){
                  tongue_mask = child;
@@ -101,101 +115,104 @@ public class FrogBehaviourScript : Enemy
         // }
 		//
 
-		if (jumpingTimer > 0)
-		{
-			velocity.x = (UnityEngine.Random.Range(400f, 600f) * dirMultiplier);
-			if (jumpingTimer < 10)
+		if (isEvolving == false){
+
+			if (jumpingTimer > 0)
 			{
-				velocity.y = 20f;
-			}
-			else
-			{
-				velocity.y = 100f;
-			}
-			myrigidbody.AddForce(velocity, ForceMode2D.Impulse);
-			jumpingTimer--;
-		}
-		else if (isGrounded == true || jumpingTimer == 0)
-		{
-			velocity.y = 0;
-			isJumping = false;
-		}
-
-		if (directionIsRight){ //is right
-			dirMultiplier = 1f;
-			transform.localScale = new Vector3(10, 10, 1);
-		} else { //is left
-			dirMultiplier = -1f;
-			transform.localScale = new Vector3(-10, 10, 1);
-		}
-
-		if (isGrounded == true && myrigidbody.velocity.y <= 0f){
-			isJumping = false;
-		}
-
-        if (isGrounded == true && isDead == false && isLicking == false) {
-			if (((directionIsRight == false && transform.position.x < -10f) || (directionIsRight == true && transform.position.x > 10f)) &&
-					UnityEngine.Random.Range(0, 800) == 0){
-				if (directionIsRight == true){
-					directionIsRight = false;
-				} else {
-					directionIsRight = true;
+				velocity.x = (UnityEngine.Random.Range(400f, 600f) * dirMultiplier);
+				if (jumpingTimer < 10)
+				{
+					velocity.y = 20f;
 				}
-			} else if (canLick == true && isLicking == false){
-
-				tongue_mask.gameObject.SetActive(true);
-				isLicking = true;
-				tongue.thrust();
-
+				else
+				{
+					velocity.y = 100f;
+				}
+				myrigidbody.AddForce(velocity, ForceMode2D.Impulse);
+				jumpingTimer--;
 			}
-			// else if (lastJump == 0){
-	        //     // isJumping = true;
-	        //     // jumpingTimer = random.Next(8, 13);
-	        //     lastJump = random.Next(55, 80);
-			// }
-        }
+			else if (isGrounded == true || jumpingTimer == 0)
+			{
+				velocity.y = 0;
+				isJumping = false;
+			}
 
-		if (isDead == false && jumpDelay <= 0 && isGrounded == true && isLicking == false){
+			if (directionIsRight){ //is right
+				dirMultiplier = 1f;
+				transform.localScale = new Vector3(10, 10, 1);
+			} else { //is left
+				dirMultiplier = -1f;
+				transform.localScale = new Vector3(-10, 10, 1);
+			}
 
-			if (transform.position.y < 4f){
+			if (isGrounded == true && myrigidbody.velocity.y <= 0f){
+				isJumping = false;
+			}
 
-				// float forceY = UnityEngine.Random.Range(1000f, 1500f);
+	        if (isGrounded == true && isDead == false && isLicking == false) {
+				if (((directionIsRight == false && transform.position.x < -10f) || (directionIsRight == true && transform.position.x > 10f)) &&
+						UnityEngine.Random.Range(0, 800) == 0){
+					if (directionIsRight == true){
+						directionIsRight = false;
+					} else {
+						directionIsRight = true;
+					}
+				} else if (canLick == true && isLicking == false){
 
-				jumpDelay = UnityEngine.Random.Range(100, 250);
+					tongue_mask.gameObject.SetActive(true);
+					isLicking = true;
+					tongue.thrust();
 
-				// myrigidbody.AddForce(new Vector2(forceX * dirMultiplier, forceY), ForceMode2D.Impulse);
-				jumpingTimer = UnityEngine.Random.Range(15, 20);
-				isJumping = true;
-				//  else if (transform.position.y < 2f){
-				//
-				// 	jumpDelay = UnityEngine.Random.Range(50, 60);
-				//
-				// } else {
-				//
-				// 	jumpDelay = UnityEngine.Random.Range(50, 60);
+				}
+				// else if (lastJump == 0){
+		        //     // isJumping = true;
+		        //     // jumpingTimer = random.Next(8, 13);
+		        //     lastJump = random.Next(55, 80);
 				// }
+	        }
+
+			if (isDead == false && jumpDelay <= 0 && isGrounded == true && isLicking == false){
+
+				if (transform.position.y < 4f){
+
+					// float forceY = UnityEngine.Random.Range(1000f, 1500f);
+
+					jumpDelay = UnityEngine.Random.Range(100, 250);
+
+					// myrigidbody.AddForce(new Vector2(forceX * dirMultiplier, forceY), ForceMode2D.Impulse);
+					jumpingTimer = UnityEngine.Random.Range(15, 20);
+					isJumping = true;
+					//  else if (transform.position.y < 2f){
+					//
+					// 	jumpDelay = UnityEngine.Random.Range(50, 60);
+					//
+					// } else {
+					//
+					// 	jumpDelay = UnityEngine.Random.Range(50, 60);
+					// }
+				}
+			} else {
+
+				jumpDelay--;
+
 			}
-		} else {
 
-			jumpDelay--;
-
+			if (myrigidbody.velocity.x > 4f)
+	        {
+	            myrigidbody.velocity = new Vector2(4f, myrigidbody.velocity.y);
+	        } else if (myrigidbody.velocity.x < -4f)
+	        {
+	            myrigidbody.velocity = new Vector2(-4f, myrigidbody.velocity.y);
+	        }
+	        if (myrigidbody.velocity.y > 10f)
+	        {
+	            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, 10f);
+	        }
+	        else if (myrigidbody.velocity.y < -10f)
+	        {
+	            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, -10f);
+	        }
 		}
-
-		if (myrigidbody.velocity.x > 4f)
-        {
-            myrigidbody.velocity = new Vector2(4f, myrigidbody.velocity.y);
-        } else if (myrigidbody.velocity.x < -4f)
-        {
-            myrigidbody.velocity = new Vector2(-4f, myrigidbody.velocity.y);
-        }
-        if (myrigidbody.velocity.y > 10f)
-        {
-            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, 10f);
-        }
-        else if (myrigidbody.velocity.y < -10f)
-        {
-            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, -10f);
-        }
 
 		//add friction? needed?
 		// if (isJumping == false){
@@ -231,8 +248,12 @@ public class FrogBehaviourScript : Enemy
 	        isDead = true;
 	        // mycollider.size = new Vector2(0.12f, 0.04f);
 	        // mycollider.offset = new Vector2(0f, -0.02f);
-	        mycollider.offset = new Vector2(0f, -0.035f);
-	        mycollider.size = new Vector2(0.12f, 0.01f);
+			if (frogType == "frog"){
+				BoxCollider2D myFrogCollider = GetComponent<BoxCollider2D>();
+		        myFrogCollider.offset = new Vector2(0f, -0.035f);
+		        myFrogCollider.size = new Vector2(0.12f, 0.01f);
+			}
+
 	        StartCoroutine(dieDelay());
 	        // Destroy(gameObject);
 		} else {
@@ -240,10 +261,64 @@ public class FrogBehaviourScript : Enemy
 		}
     }
 
-	IEnumerator dieDelay(){
-        yield return new WaitForSeconds(5);
+	// IEnumerator dieDelay(){
+	// 	Physics2D.IgnoreCollision(playercollider, GetComponent<Collider2D>());
+    //     yield return new WaitForSeconds(5);
+	// 	Destroy(gameObject);
+    // }
+
+	public void consume(Collider2D pickup){
+		frogConsume(pickup);
+		Destroy(pickup.gameObject);
+		isLicking = false;
+		tongue_mask.gameObject.SetActive(false);
+		canLick = false;
+	}
+
+	public virtual void frogConsume(Collider2D pickup) {
+		Pickup p = pickup.GetComponent<Pickup>();
+		if (p.level > 1){
+			StartCoroutine(evolveIntoToad());
+		}
+   }
+
+   IEnumerator evolveIntoToad(){
+
+		isProtected = true;
+		isEvolving = true;
+
+		SpriteRenderer sr = GetComponent<SpriteRenderer>();
+		Animator animator = GetComponent<Animator>();
+		animator.enabled = false;
+
+		Sprite[] sprites = Resources.LoadAll<Sprite>(@"sprites");
+		Sprite toadSprite = null;
+		Sprite frogSprite = null;
+		for (int x = 0; x < sprites.Length; x++) {
+			if (sprites[x].name == "toad_idle_offset"){
+				toadSprite = sprites[x];
+			}
+			if (sprites[x].name == "frog_idle"){
+				frogSprite = sprites[x];
+			}
+		}
+
+		sr.sprite = toadSprite;
+		yield return new WaitForSeconds(0.3f);
+		sr.sprite = frogSprite;
+		yield return new WaitForSeconds(0.3f);
+		sr.sprite = toadSprite;
+		yield return new WaitForSeconds(0.3f);
+		sr.sprite = frogSprite;
+		yield return new WaitForSeconds(0.3f);
+		sr.sprite = toadSprite;
+
+		GameObject mytoad = Instantiate(Resources.Load("Prefabs/toad")) as GameObject;
+		mytoad.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+		ToadBehaviourScript toadBS = mytoad.GetComponent<ToadBehaviourScript>();
+		toadBS.directionIsRight = directionIsRight;
 		Destroy(gameObject);
-    }
+   }
 
 	public virtual int getThrustTimer() {
       return 23;

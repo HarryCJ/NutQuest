@@ -49,7 +49,7 @@
      <Compile Include="Assets\Scripts\AppleBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Bird\BirdBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Bird\bird_bottom_collider_script.cs" />
-     <Compile Include="Assets\Scripts\Bird\bird_top_collider_script.cs" />
+     <Compile Include="Assets\Scripts\Bird\bird_surrounding_collider_script.cs" />
      <Compile Include="Assets\Scripts\CameraBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\CloudBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Enemy.cs" />
@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\Frog\frog_tongue_script.cs" />
      <Compile Include="Assets\Scripts\Frog\frog_top_collider_script.cs" />
      <Compile Include="Assets\Scripts\NutBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\NutPointMarkerBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\NutSpawnerBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Pickup.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerBehaviourScript.cs" />
@@ -80,13 +81,13 @@
      <None Include="Assets\SpriteMask\Resources\SpriteMask.shader" />
      <None Include="Assets\SpriteMask\Resources\SpriteDefault.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>E:/Program files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
