@@ -240,8 +240,8 @@ public class FrogBehaviourScript : Enemy
 
     }
 
-	public override void die(){
-		Debug.Log("die");
+	public override void tryKill(){
+		Debug.Log("tryKill");
 
 		lives--;
 		if (isDead == false && isProtected == false && lives <= 0){
@@ -303,15 +303,14 @@ public class FrogBehaviourScript : Enemy
 			}
 		}
 
-		sr.sprite = toadSprite;
-		yield return new WaitForSeconds(0.3f);
-		sr.sprite = frogSprite;
-		yield return new WaitForSeconds(0.3f);
-		sr.sprite = toadSprite;
-		yield return new WaitForSeconds(0.3f);
-		sr.sprite = frogSprite;
-		yield return new WaitForSeconds(0.3f);
-		sr.sprite = toadSprite;
+		// sr.sprite = toadSprite;
+		for (float x = 0f; x < 0.2f; x+=0.01f) {
+			yield return new WaitForSeconds(x);
+			sr.sprite = frogSprite;
+			yield return new WaitForSeconds(0.2f-x);
+			sr.sprite = toadSprite;
+		}
+		yield return new WaitForSeconds(2f);
 
 		GameObject mytoad = Instantiate(Resources.Load("Prefabs/toad")) as GameObject;
 		mytoad.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);

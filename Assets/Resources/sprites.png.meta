@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1441497080
+timeCreated: 1441660036
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -252,8 +252,8 @@ TextureImporter:
         y: 114
         width: 5
         height: 7
-      alignment: 2
-      pivot: {x: .5, y: 1}
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: bird_flap_up
       rect:
@@ -382,8 +382,8 @@ TextureImporter:
         y: 111
         width: 9
         height: 9
-      alignment: 2
-      pivot: {x: .5, y: 1}
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: frog_tongue
       rect:
@@ -572,8 +572,8 @@ TextureImporter:
         y: 99
         width: 6
         height: 9
-      alignment: 1
-      pivot: {x: 0, y: 1}
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: sun_ui
       rect:

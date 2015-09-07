@@ -53,7 +53,7 @@ public class frog_top_collider_script : MonoBehaviour {
 
     void die(){
 
-        parent.die();
+        parent.tryKill();
         // Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), parent.GetComponent<Collider2D>());
         Destroy(this);
     }

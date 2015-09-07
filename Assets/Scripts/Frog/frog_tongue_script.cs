@@ -84,7 +84,7 @@ public class frog_tongue_script : MonoBehaviour {
 
 		// transform.position = new Vector2(transform.position.x, parent.transform.position.y);
 		if (pickup != null){
-			pickup.gameObject.transform.position = new Vector2(posX, transform.position.y+0.45f);
+			pickup.gameObject.transform.position = new Vector2(posX, transform.position.y);
 			if ( (dirMultiplier == 1f && relPosX < parent.getEatPickupCutoff()) || (dirMultiplier == -1f && relPosX > (parent.getEatPickupCutoff() * -1f)) ){
 				parent.consume(pickup);
 				// Destroy(pickup.gameObject);
@@ -137,7 +137,7 @@ public class frog_tongue_script : MonoBehaviour {
 				playerBS.getHit(5, parent.directionIsRight);
 				mynut = Instantiate(Resources.Load("Prefabs/apple")) as GameObject;
 			}
-			mynut.transform.position = new Vector2(transform.position.x, transform.position.y+0.45f);
+			mynut.transform.position = new Vector2(transform.position.x, transform.position.y);
 			Collider2D nutcollider = mynut.GetComponent<Collider2D>();
 			NutBehaviourScript nutBS = mynut.GetComponent<NutBehaviourScript>();
 			nutBS.isGrowing = false;

@@ -19,5 +19,6 @@ public class AppleBehaviourScript : NutBehaviourScript {
 
 	public override void nutStart(){
         level = 2;
+        colliderType = "polygon";
     }
 }

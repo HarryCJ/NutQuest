@@ -281,14 +281,14 @@ public class PlayerBehaviourScript : MonoBehaviour {
 				Enemy myEnemy = child.GetComponent<Enemy>();
 				player_bottom_collider.targets.Remove(child);
 				if (myEnemy.isDead == false){
-					isJumping = true;
-					myEnemy.die();
+					myEnemy.tryKill();
 					if (myEnemy.isDead == true){
 						if (boostCombo > 1){
 							addPointsAndSparkle(myEnemy.nutPoints, child);
 						}
-						boost();
 					}
+					isJumping = true;
+					boost();
 				}
 			}
 		}
@@ -301,10 +301,10 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		GameObject mynutmarker = Instantiate(Resources.Load("Prefabs/nut_point_marker")) as GameObject;
 		TextMesh nutText = mynutmarker.GetComponent<TextMesh>();
 		nutText.text = "+"+(num * boostCombo).ToString();
-		mynutmarker.transform.position = new Vector2(child.transform.position.x+0.5f, child.transform.position.y+0.5f);
+		mynutmarker.transform.position = new Vector3(child.transform.position.x+0.5f, child.transform.position.y+0.5f, -5f);
 
 		GameObject mysparkle = Instantiate(Resources.Load("Prefabs/sparkle")) as GameObject;
-		mysparkle.transform.position = new Vector2(child.transform.position.x, child.transform.position.y-0.45f);
+		mysparkle.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, -1f);
 		mysparkle.GetComponent<Rigidbody2D>().velocity = child.GetComponent<Rigidbody2D>().velocity;
 	}
 

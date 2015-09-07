@@ -19,6 +19,7 @@ public class NutPointMarkerBehaviourScript : MonoBehaviour {
 
 		c.a = c.a-=0.01f;
 		tm.color = c;
+		transform.localScale = new Vector3(transform.localScale.x+0.0002f, transform.localScale.y+0.0002f, 1f);
 
 		if (dieTimer > 90){
 			Destroy(gameObject);

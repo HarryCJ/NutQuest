@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour {
 
 	}
 
-	public virtual void die(){
+	public virtual void tryKill(){
 		Debug.Log("ENEMY DIES!!!");
 	}
 

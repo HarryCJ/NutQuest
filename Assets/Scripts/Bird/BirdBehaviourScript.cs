@@ -180,7 +180,7 @@ public class BirdBehaviourScript : Enemy {
 	// 	isDead = true;
 	// }
 
-	public override void die(){
+	public override void tryKill(){
 		if (isDead == false){
 	        isDead = true;
 	        // mycollider.size = new Vector2(0.09f, 0.1f);

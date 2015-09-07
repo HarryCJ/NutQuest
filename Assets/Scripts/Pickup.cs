@@ -5,6 +5,7 @@ public class Pickup : MonoBehaviour {
 
 	// public int nutPoints = 0;
 	public int level = 1;
+	public string colliderType = "box";
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,14 @@ public class Pickup : MonoBehaviour {
 
 	public virtual int getNutPoints(){
 		return 0;
+	}
+
+	public float getCenterY(){
+		if (colliderType == "box"){
+			return GetComponent<BoxCollider2D>().offset.y;
+		} else {
+			return transform.position.y;
+		}
 	}
 
 }

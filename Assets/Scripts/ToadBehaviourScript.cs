@@ -18,7 +18,7 @@ public class ToadBehaviourScript : FrogBehaviourScript {
 	public override void frogStart(){
 		Debug.Log("toad hello");
 		lives = 3;
-		isBouncy = false;
+		// isBouncy = false;
 		frogType = "toad";
 		nutPoints = 3;
 

@@ -28,6 +28,7 @@ public class NutBehaviourScript : Pickup {
 	void FixedUpdate () {
         if (isGrowing){
             if (transform.localScale.x < 10f){
+                transform.position = new Vector3(transform.position.x, transform.position.y-0.005f, transform.position.z);
                 transform.localScale = new Vector2(transform.localScale.x+0.1f,transform.localScale.x+0.1f);
             } else if (transform.localScale.x > 10f) {
                 transform.localScale = new Vector2(10f, 10f);
