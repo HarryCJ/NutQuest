@@ -22,6 +22,7 @@ public class NutSpawnerBehaviourScript : MonoBehaviour {
 		Debug.Log ("spawnNuts");
 		//Random rnd = new Random();
 		int i = 0;
+        int foundTenacity = 0;
 
         while (true)
         {
@@ -33,12 +34,15 @@ public class NutSpawnerBehaviourScript : MonoBehaviour {
 
 			bool foundV = false;
             Vector3 newV = new Vector3();
-            while (foundV == false){
+            foundTenacity = 0;
+            while (foundV != true && foundTenacity < 200){
+
                 newV = new Vector3(UnityEngine.Random.Range(-16f, 16f), UnityEngine.Random.Range(0f, 22f), 0);
 
                 if (mycollider.OverlapPoint(newV)){
 					foundV = true;
 				}
+                foundTenacity++;
 			}
 
             addNut(newV);

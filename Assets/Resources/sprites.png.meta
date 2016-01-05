@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1441660036
+timeCreated: 1452029660
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -70,6 +70,27 @@ TextureImporter:
     21300124: sun_ui
     21300126: minitoad_idle
     21300128: toad_idle_offset
+    21300130: leaf
+    21300132: spider_idle
+    21300134: spider_grab
+    21300136: spider_rope
+    21300138: spider_idle2
+    21300140: spider_grounded_running_3
+    21300142: spider_grounded_running_1
+    21300144: spider_grounded_running_2
+    21300146: spider_grounded_running_4
+    21300148: spider_dead
+    21300150: spider_sack
+    21300152: tail_part_1
+    21300154: tail_part_2
+    21300156: tail_part_3
+    21300158: tail_part_4
+    21300160: tail_part_5
+    21300162: white
+    21300164: mushroom_1
+    21300166: mushroom_2
+    21300168: mushroom_3
+    21300170: mushroom_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -604,6 +625,216 @@ TextureImporter:
         height: 19
       alignment: 9
       pivot: {x: .5, y: .200000003}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: leaf
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 78
+        width: 10
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_idle
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 67
+        width: 17
+        height: 13
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_grab
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 65
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_rope
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 77
+        width: 1
+        height: 2
+      alignment: 2
+      pivot: {x: .5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_idle2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 66
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_grounded_running_3
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 121
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_grounded_running_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 140
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_grounded_running_2
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 131
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_grounded_running_4
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 112
+        width: 15
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_dead
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 101
+        width: 16
+        height: 5
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: spider_sack
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 64
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail_part_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 37
+        width: 6
+        height: 5
+      alignment: 1
+      pivot: {x: 0, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail_part_2
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 35
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail_part_3
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 35
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail_part_4
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 22
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tail_part_5
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 22
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: white
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 136
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mushroom_1
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 87
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mushroom_2
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 87
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mushroom_3
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 87
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: mushroom_4
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 87
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

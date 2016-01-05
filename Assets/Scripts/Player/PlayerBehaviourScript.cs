@@ -12,6 +12,8 @@ public class PlayerBehaviourScript : MonoBehaviour {
     public bool isRunning;
 	public bool isProtected = false;
 
+	bool directionIsRight = true;
+
     public int jumpingTimer = -1;
     Animator animator;
     Animator tailAnimator;
@@ -20,9 +22,46 @@ public class PlayerBehaviourScript : MonoBehaviour {
     int lastBoost = 0;
 	public bool isBoosting;
 
+	GameObject tail = null;
+	GameObject tail_1 = null;
+	GameObject tail_2 = null;
+	GameObject tail_3 = null;
+	GameObject tail_4 = null;
+	GameObject tail_5 = null;
+
+	SpriteRenderer tail_1_sr = null;
+	SpriteRenderer tail_2_sr = null;
+	SpriteRenderer tail_3_sr = null;
+	SpriteRenderer tail_4_sr = null;
+	SpriteRenderer tail_5_sr = null;
+
+	Vector3 tail_pendingPos = new Vector3();
+	Vector3 tail_1_pendingPos = new Vector3();
+	Vector3 tail_2_pendingPos = new Vector3();
+	Vector3 tail_3_pendingPos = new Vector3();
+	Vector3 tail_4_pendingPos = new Vector3();
+	Vector3 tail_5_pendingPos = new Vector3();
+
+	Vector3 tail_1_accurateRot = new Vector3();
+	Vector3 tail_2_accurateRot = new Vector3();
+	Vector3 tail_3_accurateRot = new Vector3();
+	Vector3 tail_4_accurateRot = new Vector3();
+	Vector3 tail_5_accurateRot = new Vector3();
+
+	Vector3 tail_1_pendingRot = new Vector3();
+	Vector3 tail_2_pendingRot = new Vector3();
+	Vector3 tail_3_pendingRot = new Vector3();
+	Vector3 tail_4_pendingRot = new Vector3();
+	Vector3 tail_5_pendingRot = new Vector3();
+
+	Vector3 tail_5_pendingScale = new Vector3();
+
 	public int nuts = 0;
 	public int boostCombo = 1;
 
+	SpriteRenderer my_sr = null;
+	GameObject environment;
+	public WorldScript environment_ws;
 
     List<GameObject> nutCounterUIText  = new List<GameObject>();
     List<Text> nutCounterUITextText  = new List<Text>();
@@ -33,8 +72,15 @@ public class PlayerBehaviourScript : MonoBehaviour {
 	Transform player_surrounding_collider;
 	player_surrounding_collider_script player_surrounding_collider_s;
 
+	public float frogBoost = 0f;
+
     // Use this for initialization
     void Start(){
+
+		my_sr = GetComponent<SpriteRenderer>();
+
+		environment = GameObject.Find("environment");
+		environment_ws = environment.GetComponent<WorldScript>();
 
 		nutCounterUIText.Add(GameObject.Find("nutCounterUIText1"));
 		nutCounterUITextText.Add(nutCounterUIText[0].GetComponent<Text>());
@@ -56,10 +102,24 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		boostComboUIText.Add(GameObject.Find("boostComboUIText3"));
 		boostComboUITextText.Add(boostComboUIText[3].GetComponent<Text>());
 
+
+		tail = GameObject.Find("tail");
+		tail_1 = GameObject.Find("tail_proto");
+		tail_2 = GameObject.Find("tail_part_2");
+		tail_3 = GameObject.Find("tail_part_3");
+		tail_4 = GameObject.Find("tail_part_4");
+		tail_5 = GameObject.Find("tail_part_5");
+
+		tail_1_sr = tail_1.GetComponent<SpriteRenderer>();
+		tail_2_sr = tail_2.GetComponent<SpriteRenderer>();
+		tail_3_sr = tail_3.GetComponent<SpriteRenderer>();
+		tail_4_sr = tail_4.GetComponent<SpriteRenderer>();
+		tail_5_sr = tail_5.GetComponent<SpriteRenderer>();
+
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         foreach (Transform child in transform){
-            if (child.name == "tail"){
+            if (child.name == "tailBLANK"){
                  tailAnimator = child.GetComponent<Animator>();
             } else if (child.name == "player_bottom_collider"){
 				player_bottom_collider = child.GetComponent<player_bottom_collider_script>();
@@ -83,11 +143,19 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		myrigidbody.mass = 5f;
 
         if (velocity.x > 0){ //is right
-            transform.localScale = new Vector3(10, 10, 1);
-            isRunning = true;
+			isRunning = true;
+			if (directionIsRight == false){
+				directionIsRight = true;
+				transform.localScale = new Vector3(10, 10, 1);
+				// tail.transform.localPosition = new Vector3((tail.transform.localPosition.x*-1), tail.transform.localPosition.y, tail.transform.localPosition.z);
+			}
 		} else if (velocity.x < 0) { //is left
-            transform.localScale = new Vector3(-10, 10, 1);
             isRunning = true;
+			if (directionIsRight == true){
+				directionIsRight = false;
+	            transform.localScale = new Vector3(-10, 10, 1);
+				// tail.transform.localPosition = new Vector3((tail.transform.localPosition.x*-1), tail.transform.localPosition.y, tail.transform.localPosition.z);
+			}
         } else {
             isRunning = false;
         }
@@ -99,7 +167,8 @@ public class PlayerBehaviourScript : MonoBehaviour {
                 isJumping = true;
                 jumpingTimer = 10;
 
-		        tryBoost();
+		        // tryBoost(10, true);
+		        boost(10, false);
 
             }
             if (isRunning == false && (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))) {
@@ -173,14 +242,153 @@ public class PlayerBehaviourScript : MonoBehaviour {
         animator.SetBool("isBoosting", isBoosting);
         animator.SetBool("isProtected", isProtected);
 
+		tail_pendingPos = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.07f, -0.005f, 0f), Time.deltaTime*30);
+
+		tail_1_pendingPos = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0f, 0.01f, 0f), Time.deltaTime*30);
+		tail_2_pendingPos = Vector3.Lerp(tail_2.transform.localPosition, new Vector3(0.045f, -0.025f, 0f), Time.deltaTime*30);
+		tail_3_pendingPos = Vector3.Lerp(tail_3.transform.localPosition, new Vector3(0f, 0.03f, 0f), Time.deltaTime*30);
+		tail_4_pendingPos = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(-0.01f, 0.02f, 0f), Time.deltaTime*30);
+		tail_5_pendingPos = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, 0.01f, 0f), Time.deltaTime*30);
+
+		tail_1_accurateRot = new Vector3(getAccurateRot(tail_1.transform.localEulerAngles.x), getAccurateRot(tail_1.transform.localEulerAngles.y), getAccurateRot(tail_1.transform.localEulerAngles.z));
+		tail_2_accurateRot = new Vector3(getAccurateRot(tail_2.transform.localEulerAngles.x), getAccurateRot(tail_2.transform.localEulerAngles.y), getAccurateRot(tail_2.transform.localEulerAngles.z));
+		tail_3_accurateRot = new Vector3(getAccurateRot(tail_3.transform.localEulerAngles.x), getAccurateRot(tail_3.transform.localEulerAngles.y), getAccurateRot(tail_3.transform.localEulerAngles.z));
+		tail_4_accurateRot = new Vector3(getAccurateRot(tail_4.transform.localEulerAngles.x), getAccurateRot(tail_4.transform.localEulerAngles.y), getAccurateRot(tail_4.transform.localEulerAngles.z));
+		tail_5_accurateRot = new Vector3(getAccurateRot(tail_5.transform.localEulerAngles.x), getAccurateRot(tail_5.transform.localEulerAngles.y), getAccurateRot(tail_5.transform.localEulerAngles.z));
+
+		tail_1_pendingRot = Vector3.Lerp(tail_1_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+		tail_2_pendingRot = Vector3.Lerp(tail_2_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+		tail_3_pendingRot = Vector3.Lerp(tail_3_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+		tail_4_pendingRot = Vector3.Lerp(tail_4_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+		tail_5_pendingRot = Vector3.Lerp(tail_5_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+
+		tail_5_pendingScale = new Vector3(1f, 1f, 1f);
+
+		tail_1_sr.sortingOrder = -1;
+		tail_2_sr.sortingOrder = -1;
+		tail_3_sr.sortingOrder = -1;
+		tail_4_sr.sortingOrder = -1;
+		tail_5_sr.sortingOrder = -1;
+
+		if (isRunning == true && isGrounded == true){
+
+			tail_1_pendingPos = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0f, 0f, 0f), Time.deltaTime*2.5f);
+			tail_2_pendingPos = Vector3.Lerp(tail_2.transform.localPosition, new Vector3(0.045f, -0.025f, 0f), Time.deltaTime*2.5f);
+			tail_3_pendingPos = Vector3.Lerp(tail_3.transform.localPosition, new Vector3(0f, 0.03f, 0f), Time.deltaTime*2.5f);
+			tail_4_pendingPos = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(-0.02f, 0.02f, 0f), Time.deltaTime*2.5f);
+			tail_5_pendingPos = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, 0.01f, 0f), Time.deltaTime*2.5f);
+
+			tail_4_pendingRot = Vector3.Lerp(tail_4_accurateRot, new Vector3(0f, 0f, -90f), Time.deltaTime*30);
+			// tail_4_pendingRot = new Vector3(0f, 0f, -90f);
+
+			// float realPosZ = (tail_4.transform.localEulerAngles.z > 180) ? tail_4.transform.localEulerAngles.z - 360 : tail_4.transform.localEulerAngles.z;
+			// float targetZ = Mathf.Lerp(realPosZ, -90f,  Time.deltaTime*5);
+			// tail_4.transform.localEulerAngles = new Vector3(tail_4.transform.localEulerAngles.x, tail_4.transform.localEulerAngles.y, targetZ);
+			// tail_4_sr.sortingOrder = -1;
+			// tail_5_sr.sortingOrder = -1;
+
+			// tail_1.transform.localEulerAngles = Vector3.Lerp(tail_1.transform.localEulerAngles, new Vector3(0f, 0f, 90f), Time.deltaTime*5);
+			tail_1_pendingRot = Vector3.Lerp(tail_1_accurateRot, new Vector3(0f, 0f, 90f), Time.deltaTime*5);
+			// realPosZ = (tail_1.transform.localEulerAngles.z > 180) ? tail_1.transform.localEulerAngles.z - 360 : tail_1.transform.localEulerAngles.z;
+			// targetZ = Mathf.Lerp(realPosZ, 90f,  Time.deltaTime*5);
+			// tail_1.transform.localEulerAngles = new Vector3(tail_1.transform.localEulerAngles.x, tail_1.transform.localEulerAngles.y, 90f);
+			if (my_sr.sprite.name == "squirrel_running_1"){
+				// tail_pendingPos = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.08f, -0.005f, 0f), Time.deltaTime*30);
+				tail_pendingPos = new Vector3(-0.08f, -0.005f, tail.transform.localPosition.z);
+			} else if (my_sr.sprite.name == "squirrel_running_2"){
+				// tail_pendingPos = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.09f, -0.005f, 0f), Time.deltaTime*30);
+				tail_pendingPos = new Vector3(-0.09f, -0.005f, tail.transform.localPosition.z);
+			} else if (my_sr.sprite.name == "squirrel_running_3"){
+				// tail_pendingPos = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.1f, -0.005f, 0f), Time.deltaTime*30);
+				tail_pendingPos = new Vector3(-0.1f, -0.005f, tail.transform.localPosition.z);
+			}
+		} else if (isDucking == true){
+
+			tail_1_pendingPos = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0.07f, 0.01f, 0f), Time.deltaTime*30);
+			tail_1_pendingRot = Vector3.Lerp(tail_1_accurateRot, new Vector3(0f, 0f, -90f), Time.deltaTime*30);
+			// float realPosZ = (tail_1.transform.localEulerAngles.z > 180) ? tail_1.transform.localEulerAngles.z - 360 : tail_1.transform.localEulerAngles.z;
+			// float targetZ = Mathf.Lerp(realPosZ, -90f,  Time.deltaTime*30);
+			// tail_1.transform.localEulerAngles = new Vector3(tail_1.transform.localEulerAngles.x, tail_1.transform.localEulerAngles.y, targetZ);
+			tail_5_pendingPos = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, -0.01f, 0f), Time.deltaTime*30);
+
+			tail_4_pendingRot = Vector3.Lerp(tail_4_accurateRot, new Vector3(0f, 0f, 90f), Time.deltaTime*30);
+			tail_4_pendingPos = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(0.0f, 0.02f, 0f), Time.deltaTime*30);
+			tail_5_pendingScale = new Vector3(-1f, 1f, 1f);
+
+		} else if (isGrounded == false){
+
+			if (myrigidbody.velocity.y > 0f){
+
+				tail_1_pendingPos = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0f, 0f, 0f), Time.deltaTime*10f);
+				tail_2_pendingPos = Vector3.Lerp(tail_2.transform.localPosition, new Vector3(0.025f, -0.025f, 0f), Time.deltaTime*10f);
+				tail_2_pendingRot = Vector3.Lerp(tail_2_accurateRot, new Vector3(0f, 0f, 150f), Time.deltaTime*10f);
+				tail_3_pendingPos = Vector3.Lerp(tail_3.transform.localPosition, new Vector3(0f, 0.03f, 0f), Time.deltaTime*10f);
+				tail_4_pendingPos = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(-0.02f, 0.02f, 0f), Time.deltaTime*10f);
+				tail_5_pendingPos = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, 0.01f, 0f), Time.deltaTime*10f);
+				tail_4_pendingRot = Vector3.Lerp(tail_4_accurateRot, new Vector3(0f, 0f, -90f), Time.deltaTime*30);
+			} else {
+				tail_1_pendingPos = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0f, 0f, 0f), Time.deltaTime*2.5f);
+				tail_2_pendingPos = Vector3.Lerp(tail_2.transform.localPosition, new Vector3(0.045f, -0.025f, 0f), Time.deltaTime*2.5f);
+				tail_2_pendingRot = Vector3.Lerp(tail_2_accurateRot, new Vector3(0f, 0f, 0f), Time.deltaTime*2.5f);
+				tail_3_pendingPos = Vector3.Lerp(tail_3.transform.localPosition, new Vector3(0f, 0.03f, 0f), Time.deltaTime*2.5f);
+				tail_4_pendingPos = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(-0.02f, 0.02f, 0f), Time.deltaTime*2.5f);
+				tail_5_pendingPos = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, 0.01f, 0f), Time.deltaTime*2.5f);
+				tail_4_pendingRot = Vector3.Lerp(tail_4_accurateRot, new Vector3(0f, 0f, -90f), Time.deltaTime*30);
+			}
+
+		} else {
+
+			// tail_1.transform.localPosition = Vector3.Lerp(tail_1.transform.localPosition, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+			// tail_2.transform.localPosition = Vector3.Lerp(tail_2.transform.localPosition, new Vector3(0.045f, -0.025f, 0f), Time.deltaTime*30);
+			// tail_3.transform.localPosition = Vector3.Lerp(tail_3.transform.localPosition, new Vector3(0f, 0.03f, 0f), Time.deltaTime*30);
+			// tail_4.transform.localPosition = Vector3.Lerp(tail_4.transform.localPosition, new Vector3(-0.01f, 0.02f, 0f), Time.deltaTime*30);
+			// tail_5.transform.localPosition = Vector3.Lerp(tail_5.transform.localPosition, new Vector3(-0.01f, 0.01f, 0f), Time.deltaTime*30);
+			//
+			// tail_5.transform.localScale = new Vector3(1f, 1f, 1f);
+			//
+			// tail_4.transform.localEulerAngles = Vector3.Lerp(tail_4.transform.localEulerAngles, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+			//
+			// // tail_1.transform.localEulerAngles = Vector3.Lerp(tail_1.transform.localEulerAngles, new Vector3(0f, 0f, 0f), Time.deltaTime*30);
+			// tail_1.transform.localEulerAngles = Vector3.Lerp(tail_1.transform.localEulerAngles, new Vector3(0f, 0f, tail_1.transform.localEulerAngles.z), Time.deltaTime*30);
+			// float realPosZ = (tail_1.transform.localEulerAngles.z > 180) ? tail_1.transform.localEulerAngles.z - 360 : tail_1.transform.localEulerAngles.z;
+			// float targetZ = Mathf.Lerp(realPosZ, 0f,  Time.deltaTime*30);
+			// tail_1.transform.localEulerAngles = new Vector3(tail_1.transform.localEulerAngles.x, tail_1.transform.localEulerAngles.y, targetZ);
+			//
+			// tail.transform.localPosition = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.07f, -0.005f, 0f), Time.deltaTime*30);
+			// tail_5_sr.sortingOrder = -1;
+			// tail_4_sr.sortingOrder = -1;
+		}
+
+		// Debug.Log(myrigidbody.velocity.x);
+
+		tail.transform.localPosition = tail_pendingPos;
+
+		tail_1.transform.localPosition = tail_1_pendingPos;
+		tail_2.transform.localPosition = tail_2_pendingPos;
+		tail_3.transform.localPosition = tail_3_pendingPos;
+		tail_4.transform.localPosition = tail_4_pendingPos;
+		tail_5.transform.localPosition = tail_5_pendingPos;
+
+		tail_1.transform.localEulerAngles = tail_1_pendingRot;
+		tail_2.transform.localEulerAngles = tail_2_pendingRot;
+		tail_3.transform.localEulerAngles = tail_3_pendingRot;
+		tail_4.transform.localEulerAngles = tail_4_pendingRot;
+		tail_5.transform.localEulerAngles = tail_5_pendingRot;
+
+		tail_5.transform.localScale = tail_5_pendingScale;
+
 
         // tailAnimator.SetFloat("velocity.x", velocity.x);
         // tailAnimator.SetFloat("velocity.y", velocity.y);
-        tailAnimator.SetBool("isGrounded", isGrounded);
-        tailAnimator.SetBool("isDucking", isDucking);
-        tailAnimator.SetBool("isJumping", isJumping);
-        tailAnimator.SetBool("isRunning", isRunning);
+        // tailAnimator.SetBool("isGrounded", isGrounded);
+        // tailAnimator.SetBool("isDucking", isDucking);
+        // tailAnimator.SetBool("isJumping", isJumping);
+        // tailAnimator.SetBool("isRunning", isRunning);
     }
+
+	public float getAccurateRot(float r){
+		return (r > 180) ? r - 360 : r;
+	}
 
 	public void resetBoostCombo(){
 
@@ -264,7 +472,9 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		}
 	}
 
-	public void tryBoost(){
+	public void tryBoost(int jumpAmount, bool addToMultiplier){
+
+		Debug.Log("tryBoost");
 
 		// if (lastBoost == 0){
 		// 	Debug.Log("boost");
@@ -279,16 +489,17 @@ public class PlayerBehaviourScript : MonoBehaviour {
 			GameObject child = player_bottom_collider.targets[x];
 			if (child != null && child.transform.tag.Contains("enemy")){
 				Enemy myEnemy = child.GetComponent<Enemy>();
-				player_bottom_collider.targets.Remove(child);
+				// player_bottom_collider.targets.Remove(child);
 				if (myEnemy.isDead == false){
 					myEnemy.tryKill();
 					if (myEnemy.isDead == true){
-						if (boostCombo > 1){
+
+						if (boostCombo > 1 && myEnemy.nutPoints > 0){
 							addPointsAndSparkle(myEnemy.nutPoints, child);
 						}
 					}
+					boost(jumpAmount, addToMultiplier);
 					isJumping = true;
-					boost();
 				}
 			}
 		}
@@ -308,12 +519,14 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		mysparkle.GetComponent<Rigidbody2D>().velocity = child.GetComponent<Rigidbody2D>().velocity;
 	}
 
-	public void boost(){
+	public void boost(int jumpAmount, bool addToMultiplier){
 
-		boostCombo += 1;
-		jumpingTimer = 16;
+		if (addToMultiplier == true){
+			boostCombo += 1;
+	        StartCoroutine(boostComboTransition());
+		}
+		jumpingTimer = jumpAmount;
 		isBoosting = true;
-        StartCoroutine(boostComboTransition());
 
 	}
 
@@ -399,6 +612,30 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		}
 		myrigidbody.AddForce(new Vector2(((500f * forceMultiplier)), 100f), ForceMode2D.Impulse);
 	}
+
+	// IEnumerator flashWhite(){
+	//
+	// 	isProtected = true;
+	// 	player_surrounding_collider.gameObject.SetActive(false);
+	//
+	// 	SpriteRenderer sr = GetComponent<SpriteRenderer>();
+	//
+	// 	sr.enabled = false;
+    //     yield return new WaitForSeconds(0.2f);
+	// 	sr.enabled = true;
+    //     yield return new WaitForSeconds(0.2f);
+	// 	sr.enabled = false;
+    //     yield return new WaitForSeconds(0.2f);
+	// 	sr.enabled = true;
+    //     yield return new WaitForSeconds(0.2f);
+	// 	sr.enabled = false;
+	//     yield return new WaitForSeconds(0.2f);
+	// 	sr.enabled = true;
+	//
+    //     // yield return new WaitForSeconds(1);
+	// 	isProtected = false;
+	// 	player_surrounding_collider.gameObject.SetActive(true);
+    // }
 
 	IEnumerator protect(){
 

@@ -20,16 +20,18 @@ public class player_surrounding_collider_script : MonoBehaviour {
 		if (other.tag.Contains("pickup")){
 			// parent.createSparkle(other.gameObject);
 			Pickup myPickup = other.GetComponent<Pickup>();
-			parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
-			// parent.addNutPoints(myPickup.getNutPoints());
-			Destroy(other.gameObject);
+			if (myPickup.isProtected == false){
+				parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
+				// parent.addNutPoints(myPickup.getNutPoints());
+				Destroy(other.gameObject);
+			}
 		}
     }
     void OnTriggerStay2D(Collider2D other)
     {
 		if (other.tag.Contains("pickup")){
 			// parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
-			Destroy(other.gameObject);
+			// Destroy(other.gameObject);
 		}
     }
     void OnTriggerExit2D(Collider2D other)

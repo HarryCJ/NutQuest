@@ -1,0 +1,265 @@
+fileFormatVersion: 2
+guid: 25c90c36a810e29489243c24458f9bf1
+timeCreated: 1451935628
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: store_main
+    21300002: button_rg_pressed
+    21300004: button_idle
+    21300006: store_side
+    21300008: button_nuts_more
+    21300010: button_mush_more
+    21300012: store_6
+    21300014: button_frog_boost
+    21300016: store_8
+    21300018: button_frog_more
+    21300020: store_10
+    21300022: store_11
+    21300024: button_pressed
+    21300026: bar_0_3
+    21300028: bar_1_3
+    21300030: bar_2_3
+    21300032: bar_3_3
+    21300034: button_lg_idle
+    21300036: button_lg_pressed
+    21300038: button_rg_idle
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: store_main
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 107
+        width: 273
+        height: 147
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_idle
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 63
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_pressed
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 63
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_nuts_more
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 36
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_mush_more
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 36
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: store_6
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 33
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_frog_boost
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 36
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: store_8
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 4
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_frog_more
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 7
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: store_10
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 13
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: store_11
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 7
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bar_0_3
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 31
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bar_1_3
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 31
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bar_2_3
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 31
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bar_3_3
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 31
+        width: 10
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_lg_idle
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 81
+        width: 92
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_lg_pressed
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 54
+        width: 92
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_rg_idle
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 81
+        width: 48
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_rg_pressed
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 54
+        width: 48
+        height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
