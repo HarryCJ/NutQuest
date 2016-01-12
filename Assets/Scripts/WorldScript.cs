@@ -187,7 +187,21 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(CountdownWave());
         StartCoroutine(SnowGenerator());
         StartCoroutine(spawnNuts());
-    }   
+
+        StartCoroutine(blowSnow());
+        season = "summer";
+        timer = 3;
+    }  
+
+    public void addClockPoints(int num){
+        timer += num;
+        StartCoroutine(WaveDisplayTransition());
+    } 
+
+    public void subtractClockPoints(int num){
+        timer -= num;
+        StartCoroutine(WaveDisplayTransition());
+    } 
 
     IEnumerator spawnNuts(){
 
@@ -253,6 +267,19 @@ public class WorldScript : MonoBehaviour {
 
             }
 
+        }
+    }
+
+    IEnumerator blowSnow()
+    {
+        Debug.Log("blowSnow");
+        yield return new WaitForSeconds(15f);
+        Debug.Log("start");
+        float targetX = snow_falling.transform.position.x-30f;
+        for (int x = 0; x < 500; x++)
+        {
+            snow_falling.transform.position = Vector3.Lerp(snow_falling.transform.position, new Vector3(targetX, 0f, 0f), Time.deltaTime*2f);
+            yield return new WaitForSeconds(0.05f);
         }
     }
 
@@ -519,7 +546,7 @@ public class WorldScript : MonoBehaviour {
         Sprite[] sprites = Resources.LoadAll<Sprite>(@"snow_sprites");
         string[] snowNames = new string[]{"snow_0", "snow_1", "snow_2", "snow_3", "snow_4", "snow_5"};
         List<int> snowPosList = new List<int>();
-        for (int i = 0; i < 65; i++) {
+        for (int i = 0; i < 100; i++) {
             snowPosList.Add(i);
         }
 
@@ -534,8 +561,8 @@ public class WorldScript : MonoBehaviour {
                 int skipSnowPos = 133 - timer;
                 if (skipSnowPos < 0){
                     skipSnowPos = 0;
-                } else if (skipSnowPos > 64){
-                    skipSnowPos = 64;
+                } else if (skipSnowPos > 100){
+                    skipSnowPos = 100;
                 } else {
                     // skipSnowPos = skipSnowPos / 4;
                 }
@@ -546,11 +573,11 @@ public class WorldScript : MonoBehaviour {
 
                 Shuffle(snowPosList);
 
-                for (int i = skipSnowPos; i < 65; i++) { //65
+                for (int i = skipSnowPos; i < 100; i++) { //65
                     GameObject mysnow = Instantiate(Resources.Load("Prefabs/snow_falling_particle")) as GameObject;
                     mysnow.transform.parent = snow_falling.transform;
 
-                    float posX = (float) snowPosList[i]-20;
+                    float posX = (float) snowPosList[i]-30;
 
                     mysnow.transform.position = new Vector3(posX, 20f, UnityEngine.Random.Range(6f, -15f));
 

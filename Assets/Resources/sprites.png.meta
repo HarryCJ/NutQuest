@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1452029660
+timeCreated: 1452624451
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -91,6 +91,9 @@ TextureImporter:
     21300166: mushroom_2
     21300168: mushroom_3
     21300170: mushroom_4
+    21300172: clock
+    21300174: frosty_wind1
+    21300176: frosty_wind
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -833,6 +836,36 @@ TextureImporter:
         y: 87
         width: 7
         height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: clock
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 62
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: frosty_wind1
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 62
+        width: 35
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: frosty_wind
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 62
+        width: 27
+        height: 24
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

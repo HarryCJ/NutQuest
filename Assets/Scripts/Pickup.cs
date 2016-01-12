@@ -7,6 +7,7 @@ public class Pickup : MonoBehaviour {
 	public int level = 1;
 	public string colliderType = "box";
 	public bool isProtected = false;
+	public string type = "nut";
 
 	// Use this for initialization
 	void Start () {

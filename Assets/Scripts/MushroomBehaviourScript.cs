@@ -10,7 +10,7 @@ public class MushroomBehaviourScript : Pickup {
     SpriteRenderer sr;
     Sprite[] sprites;
     int growTimer = 300;
-
+    int clockPoints = 1;
         
 
 	// public virtual void nutStart(){
@@ -24,13 +24,15 @@ public class MushroomBehaviourScript : Pickup {
         myrigidbody = GetComponent<Rigidbody2D>();
         sprites = Resources.LoadAll<Sprite>(@"sprites");
 
-        if (isGrowing == true){
+        // if (isGrowing == true){
             transform.localScale = new Vector2(5f, 5f);
             StartCoroutine(grow());
     		// nutStart();
-        } else {
-            myrigidbody.isKinematic = false;
-        }
+        // } 
+        // else {
+        //     myrigidbody.isKinematic = false;
+        // }
+        type = "time";
     }
 
 	// Update is called once per frame
@@ -91,12 +93,15 @@ public class MushroomBehaviourScript : Pickup {
                         transform.localScale = new Vector2(transform.localScale.x+0.03f,transform.localScale.x+0.03f);
                     }
                 } else if (growStage == 2){
+                    clockPoints = 2;
                     // transform.position = new Vector3(transform.position.x, transform.position.y+0.0015f, transform.position.z);
                     // transform.localScale = new Vector2(transform.localScale.x+0.025f,transform.localScale.x+0.025f);
                 } else if (growStage == 3){
+                    clockPoints = 3;
                     // transform.position = new Vector3(transform.position.x, transform.position.y+0.0015f, transform.position.z);
                     // transform.localScale = new Vector2(transform.localScale.x+0.025f,transform.localScale.x+0.025f);
                 } else {
+                    clockPoints = 4;
                     isGrowing = false;
                 }
                 growTimer--;
@@ -125,7 +130,7 @@ public class MushroomBehaviourScript : Pickup {
     }
 
     public override int getNutPoints(){
-        return 1;
+        return clockPoints;
     }
 
 }

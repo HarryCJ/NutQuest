@@ -495,7 +495,7 @@ public class PlayerBehaviourScript : MonoBehaviour {
 					if (myEnemy.isDead == true){
 
 						if (boostCombo > 1 && myEnemy.nutPoints > 0){
-							addPointsAndSparkle(myEnemy.nutPoints, child);
+							addPointsAndSparkle(myEnemy.nutPoints, child, false);
 						}
 					}
 					boost(jumpAmount, addToMultiplier);
@@ -505,18 +505,29 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		}
     }
 
-	public void addPointsAndSparkle(int num, GameObject child){
-
-		addNutPoints(num);
+	public void addPointsAndSparkle(int num, GameObject child, bool clockEnabled){
 
 		GameObject mynutmarker = Instantiate(Resources.Load("Prefabs/nut_point_marker")) as GameObject;
+
+		// GameObject mysparkle = Instantiate(Resources.Load("Prefabs/sparkle")) as GameObject;
+		// mysparkle.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, -1f);
+
+		NutPointMarkerBehaviourScript nutTextBS = mynutmarker.GetComponent<NutPointMarkerBehaviourScript>();
+
+		if (environment_ws.season == "winter"){
+			nutTextBS.setBlackColor();
+		}
+
+		if (clockEnabled == true){
+			nutTextBS.setClock();
+			environment_ws.addClockPoints(num);
+		} else {
+			addNutPoints(num);
+			// mysparkle.GetComponent<Rigidbody2D>().velocity = child.GetComponent<Rigidbody2D>().velocity;
+		}
 		TextMesh nutText = mynutmarker.GetComponent<TextMesh>();
 		nutText.text = "+"+(num * boostCombo).ToString();
-		mynutmarker.transform.position = new Vector3(child.transform.position.x+0.5f, child.transform.position.y+0.5f, -5f);
-
-		GameObject mysparkle = Instantiate(Resources.Load("Prefabs/sparkle")) as GameObject;
-		mysparkle.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, -1f);
-		mysparkle.GetComponent<Rigidbody2D>().velocity = child.GetComponent<Rigidbody2D>().velocity;
+		mynutmarker.transform.position = new Vector3(child.transform.position.x, child.transform.position.y+1f, -5f);
 	}
 
 	public void boost(int jumpAmount, bool addToMultiplier){

@@ -21,7 +21,11 @@ public class player_surrounding_collider_script : MonoBehaviour {
 			// parent.createSparkle(other.gameObject);
 			Pickup myPickup = other.GetComponent<Pickup>();
 			if (myPickup.isProtected == false){
-				parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject);
+				if (myPickup.type == "nut"){
+					parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject, false);
+				} else {
+					parent.addPointsAndSparkle(myPickup.getNutPoints(), other.gameObject, true);
+				}
 				// parent.addNutPoints(myPickup.getNutPoints());
 				Destroy(other.gameObject);
 			}
