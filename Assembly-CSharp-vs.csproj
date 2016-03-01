@@ -46,34 +46,43 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AppleBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\BranchShadowBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\CameraBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\CloudBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\DeleteAreaBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\Bird\BirdBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Bird\RavenBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\Bird\bird_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Bird\bird_surrounding_collider_script.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Bird\raven_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\FrogBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\TadpoleBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\ToadBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\ToadBehaviourScriptOLD.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\frog_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\frog_tongue_area_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\frog_tongue_end_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\frog_tongue_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Frog\frog_top_collider_script.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\toad_bottom_collider_script.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\toad_tongue_area_collider_script.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\toad_tongue_end_bs.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Frog\toad_top_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spider\SpiderBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Enemies\Spider\SpiderSackBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spider\spider_bite_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spider\spider_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spider\spider_grab_collider_script.cs" />
      <Compile Include="Assets\Scripts\Enemies\Spider\spider_tree_collider_script.cs" />
-     <Compile Include="Assets\Scripts\Enemies\SpiderSackBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\FrostyWindBehaviourScript.cs" />
-     <Compile Include="Assets\Scripts\MushroomBehaviourScript.cs" />
-     <Compile Include="Assets\Scripts\NutBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\NutAreaBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\NutPointMarkerBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\NutSpawnerBehaviourScript.cs" />
-     <Compile Include="Assets\Scripts\Pickup.cs" />
+     <Compile Include="Assets\Scripts\Pickups\AppleBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Pickups\MushroomBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Pickups\NutBehaviourScript.cs" />
+     <Compile Include="Assets\Scripts\Pickups\Pickup.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerBehaviourScript.cs" />
      <Compile Include="Assets\Scripts\Player\player_bottom_collider_script.cs" />
      <Compile Include="Assets\Scripts\Player\player_surrounding_collider_script.cs" />
@@ -93,13 +102,13 @@
      <None Include="Assets\SpriteMask\Resources\SpriteMask.shader" />
      <None Include="Assets\SpriteMask\Resources\SpriteDefault.shader" />
  <Reference Include="UnityEngine.UI">
- <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
- <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
- <HintPath>E:/Program files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ <HintPath>E:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>E:/Program files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1452624451
+timeCreated: 1456694331
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,9 +14,9 @@ TextureImporter:
     21300012: frog_idle
     21300014: frog_open
     21300016: toad_idle
-    21300018: sprites_3
+    21300018: raven_flying_1
     21300020: frog_jumping
-    21300022: sprites_5
+    21300022: raven_peck_1
     21300024: toad_jumping
     21300026: sprites_7
     21300028: sprites_8
@@ -37,13 +37,13 @@ TextureImporter:
     21300058: sprites_23
     21300060: sprites_24
     21300062: sprites_25
-    21300064: sprites_2
+    21300064: raven_peck_2
     21300066: toad_open
     21300068: squirrel_tail_3
     21300070: squirrel_tail_4
     21300072: squirrel_tail_5
     21300074: squirrel_tail_1_low
-    21300076: sprites_4
+    21300076: raven_flying_2
     21300078: blank
     21300080: apple
     21300082: frog_tongue
@@ -94,6 +94,30 @@ TextureImporter:
     21300172: clock
     21300174: frosty_wind1
     21300176: frosty_wind
+    21300178: tadpole_1
+    21300180: tadpole_2
+    21300182: tadpole_3
+    21300184: tadpole_4
+    21300186: minitoad_jumping
+    21300188: minitoad_licking
+    21300190: minitoad_tongue_end
+    21300192: minitoad_tongue_middle
+    21300194: minitoad_birthing
+    21300196: minitoad_dead
+    21300198: minitoad_licking_up
+    21300200: tadpole_dead
+    21300202: glow_1
+    21300204: glow_2
+    21300206: glow_3
+    21300208: orange
+    21300210: raven_idle
+    21300212: raven_flying_3
+    21300214: raven_dead
+    21300216: raven_idle_flapping_1
+    21300218: raven_idle_flapping_2
+    21300220: bird_nest
+    21300222: raven_egg
+    21300224: bird_nest_bg
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -615,7 +639,7 @@ TextureImporter:
         x: 144
         y: 138
         width: 16
-        height: 10
+        height: 12
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -866,6 +890,286 @@ TextureImporter:
         y: 62
         width: 27
         height: 24
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tadpole_1
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 156
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tadpole_2
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 156
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tadpole_3
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 156
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tadpole_4
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 156
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_jumping
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 121
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_licking
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 137
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_tongue_end
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 166
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_tongue_middle
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 166
+        width: 1
+        height: 4
+      alignment: 4
+      pivot: {x: 0, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_birthing
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 150
+        width: 17
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_dead
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 150
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: minitoad_licking_up
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 123
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tadpole_dead
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 143
+        width: 12
+        height: 4
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_1
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 134
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_2
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 127
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_3
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 118
+        width: 12
+        height: 6
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: orange
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 85
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_idle
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 134
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_flying_3
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 111
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_peck_2
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 133
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_flying_1
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 111
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_flying_2
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 111
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_peck_1
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 133
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_dead
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 134
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_idle_flapping_1
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 157
+        width: 27
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_idle_flapping_2
+      rect:
+        serializedVersion: 2
+        x: 344
+        y: 157
+        width: 35
+        height: 20
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bird_nest
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 151
+        width: 27
+        height: 11
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: raven_egg
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 171
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: bird_nest_bg
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 157
+        width: 23
+        height: 7
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -219,7 +219,7 @@ public class SpiderBehaviourScript : Enemy {
 				if (isGrabbing == false){
 					for (int i = 0; i < hits.Length; i++) {
 			            RaycastHit2D hit = hits[i];
-						if (hit.collider.name != transform.name){
+						if (hit.collider.name != transform.name && (hit.collider.name == "player" || hit.collider.tag.Contains("enemy") || hit.collider.tag.Contains("pickup"))){
 							if (hit.collider.tag.Contains("phys")){
 								Debug.Log(hit.collider.name);
 								isMoving = true;

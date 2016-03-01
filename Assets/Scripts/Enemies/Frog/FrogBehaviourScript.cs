@@ -11,7 +11,6 @@ public class FrogBehaviourScript : Enemy
     public bool directionIsRight = true;
 
     public bool isJumping = false;
-	// public bool isDead = false;
     public int jumpingTimer = -1;
     int lastJump = 0;
 	System.Random random;
@@ -49,12 +48,9 @@ public class FrogBehaviourScript : Enemy
     public GameObject enemies;
 
 	public virtual void frogStart(){
-		// Debug.Log("ENEMY DIES!!!");
 	}
 
-    // Use this for initialization
     void Start(){
-		// Debug.Log("frog hello");
 		nutPoints = 1;
 		enemyType = "frog";
 
@@ -101,22 +97,10 @@ public class FrogBehaviourScript : Enemy
     }
 
 	public virtual void frogFixedUpdate(){
-		// Debug.Log("ENEMY DIES!!!");
 	}
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        // if (lastJump > 0){
-        //     lastJump--;
-        // }
-		//
-        // if (directionIsRight){ //is right
-        //     transform.localScale = new Vector3(10, 10, 1);
-		// } else { //is left
-        //     transform.localScale = new Vector3(-10, 10, 1);
-        // }
-		//
 
 		if (isEvolving == false){
 
@@ -167,32 +151,17 @@ public class FrogBehaviourScript : Enemy
 					tongue.thrust();
 
 				}
-				// else if (lastJump == 0){
-		        //     // isJumping = true;
-		        //     // jumpingTimer = random.Next(8, 13);
-		        //     lastJump = random.Next(55, 80);
-				// }
 	        }
 
 			if (isDead == false && jumpDelay <= 0 && isGrounded == true && isLicking == false){
 
 				if (transform.position.y < 4f){
 
-					// float forceY = UnityEngine.Random.Range(1000f, 1500f);
 
 					jumpDelay = UnityEngine.Random.Range(100, 250);
 
-					// myrigidbody.AddForce(new Vector2(forceX * dirMultiplier, forceY), ForceMode2D.Impulse);
 					jumpingTimer = UnityEngine.Random.Range(15, 20);
 					isJumping = true;
-					//  else if (transform.position.y < 2f){
-					//
-					// 	jumpDelay = UnityEngine.Random.Range(50, 60);
-					//
-					// } else {
-					//
-					// 	jumpDelay = UnityEngine.Random.Range(50, 60);
-					// }
 				}
 			} else {
 
@@ -217,22 +186,7 @@ public class FrogBehaviourScript : Enemy
 	        }
 		}
 
-		//add friction? needed?
-		// if (isJumping == false){
-		// 	if (velocity.x >= 0.02f || velocity.x <= -0.02f){
-		// 		if (directionIsRight == true) {
-		// 			velocity.x -= 0.002f;
-		// 		} else {
-		// 			velocity.x += 0.002f;
-		// 		}
-		// 	}
-		// 	// else if (velocity.x > -0.02f && velocity.x < 0.02f){
-		// 	// 	velocity.x = 0;
-		// 	// }
-		// }
 
-        // transform.Translate(velocity);
-		// myrigidbody.AddForce(new Vector2(velocity.x, velocity.y), ForceMode2D.Impulse);
 
 		frogFixedUpdate();
 
@@ -249,8 +203,6 @@ public class FrogBehaviourScript : Enemy
 		lives--;
 		if (isDead == false && isProtected == false && lives <= 0){
 	        isDead = true;
-	        // mycollider.size = new Vector2(0.12f, 0.04f);
-	        // mycollider.offset = new Vector2(0f, -0.02f);
 			if (frogType == "frog"){
 				BoxCollider2D myFrogCollider = GetComponent<BoxCollider2D>();
 		        myFrogCollider.offset = new Vector2(0f, -0.035f);
@@ -258,17 +210,11 @@ public class FrogBehaviourScript : Enemy
 			}
 
 	        StartCoroutine(dieDelay());
-	        // Destroy(gameObject);
 		} else {
 			StartCoroutine(protect());
 		}
     }
 
-	// IEnumerator dieDelay(){
-	// 	Physics2D.IgnoreCollision(playercollider, GetComponent<Collider2D>());
-    //     yield return new WaitForSeconds(5);
-	// 	Destroy(gameObject);
-    // }
 
 	public void consume(Collider2D pickup){
 		frogConsume(pickup);
@@ -287,40 +233,39 @@ public class FrogBehaviourScript : Enemy
 
    IEnumerator evolveIntoToad(){
 
-		isProtected = true;
-		isEvolving = true;
+		// isProtected = true;
+		// isEvolving = true;
 
-		SpriteRenderer sr = GetComponent<SpriteRenderer>();
-		Animator animator = GetComponent<Animator>();
-		animator.enabled = false;
+		// SpriteRenderer sr = GetComponent<SpriteRenderer>();
+		// Animator animator = GetComponent<Animator>();
+		// animator.enabled = false;
 
-		Sprite[] sprites = Resources.LoadAll<Sprite>(@"sprites");
-		Sprite toadSprite = null;
-		Sprite frogSprite = null;
-		for (int x = 0; x < sprites.Length; x++) {
-			if (sprites[x].name == "toad_idle_offset"){
-				toadSprite = sprites[x];
-			}
-			if (sprites[x].name == "frog_idle"){
-				frogSprite = sprites[x];
-			}
-		}
+		// Sprite[] sprites = Resources.LoadAll<Sprite>(@"sprites");
+		// Sprite toadSprite = null;
+		// Sprite frogSprite = null;
+		// for (int x = 0; x < sprites.Length; x++) {
+		// 	if (sprites[x].name == "toad_idle_offset"){
+		// 		toadSprite = sprites[x];
+		// 	}
+		// 	if (sprites[x].name == "frog_idle"){
+		// 		frogSprite = sprites[x];
+		// 	}
+		// }
 
-		// sr.sprite = toadSprite;
-		for (float x = 0f; x < 0.2f; x+=0.01f) {
-			yield return new WaitForSeconds(x);
-			sr.sprite = frogSprite;
-			yield return new WaitForSeconds(0.2f-x);
-			sr.sprite = toadSprite;
-		}
+		// for (float x = 0f; x < 0.2f; x+=0.01f) {
+		// 	yield return new WaitForSeconds(x);
+		// 	sr.sprite = frogSprite;
+		// 	yield return new WaitForSeconds(0.2f-x);
+		// 	sr.sprite = toadSprite;
+		// }
 		yield return new WaitForSeconds(2f);
 
-		GameObject mytoad = Instantiate(Resources.Load("Prefabs/toad")) as GameObject;
-        mytoad.transform.parent = enemies.transform;
-		mytoad.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
-		ToadBehaviourScript toadBS = mytoad.GetComponent<ToadBehaviourScript>();
-		toadBS.directionIsRight = directionIsRight;
-		Destroy(gameObject);
+		// GameObject mytoad = Instantiate(Resources.Load("Prefabs/toad")) as GameObject;
+  //       mytoad.transform.parent = enemies.transform;
+		// mytoad.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+		// ToadBehaviourScript toadBS = mytoad.GetComponent<ToadBehaviourScript>();
+		// toadBS.directionIsRight = directionIsRight;
+		// Destroy(gameObject);
    }
 
 	public virtual int getThrustTimer() {

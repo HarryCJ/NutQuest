@@ -189,9 +189,24 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(spawnNuts());
 
         StartCoroutine(blowSnow());
+        addRaven(new Vector3(0f, 0f, 0f), true);
         season = "summer";
-        timer = 3;
-    }  
+        // timer = 3;
+    }
+
+    public void disableBranchCollider(Collider2D c){
+        // for (int x = 0; x < branches_foreground_colliders.size; x++) {
+        foreach (Collider2D cc in branches_foreground_colliders){
+            Physics2D.IgnoreCollision(cc, c);
+        }
+    }
+
+    public void enableBranchCollider(Collider2D c){
+        // for (int x = 0; x < branches_foreground_colliders.size; x++) {
+        foreach (Collider2D cc in branches_foreground_colliders){
+            Physics2D.IgnoreCollision(cc, c);
+        }
+    }
 
     public void addClockPoints(int num){
         timer += num;
@@ -239,11 +254,14 @@ public class WorldScript : MonoBehaviour {
 
     void addNut(Vector3 pos){
         GameObject mynut = null;
-        if (UnityEngine.Random.Range(0, 20) == 0)
-        {
+        int dice = UnityEngine.Random.Range(0, 25);
+        if (dice == 0) {
             mynut = Instantiate(Resources.Load("Prefabs/apple")) as GameObject;
-        } else
-        {
+        } else if (dice == 1) {
+            mynut = Instantiate(Resources.Load("Prefabs/banana")) as GameObject;
+        } else if (dice == 2) {
+            mynut = Instantiate(Resources.Load("Prefabs/orange")) as GameObject;
+        } else {
             mynut = Instantiate(Resources.Load("Prefabs/nut")) as GameObject;
         }
         mynut.transform.position = pos;
@@ -915,11 +933,12 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(startNextWave());
     }
 
-    void addFrog(Vector3 pos, bool directionIsRight){
+    public void addFrog(Vector3 pos, bool directionIsRight){
       	GameObject myfrog = Instantiate(Resources.Load("Prefabs/frog")) as GameObject;
         myfrog.transform.parent = enemies.transform;
       	myfrog.transform.position = pos;
         FrogBehaviourScript frogBS = myfrog.GetComponent<FrogBehaviourScript>();
+        disableBranchCollider(myfrog.GetComponent<Collider2D>());
         frogBS.directionIsRight = directionIsRight;
     }
 
@@ -929,6 +948,15 @@ public class WorldScript : MonoBehaviour {
       	mybird.transform.position = pos;
         BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
         birdBS.directionIsRight = directionIsRight;
+    }
+
+    void addRaven(Vector3 pos, bool directionIsRight){
+        GameObject mybird = Instantiate(Resources.Load("Prefabs/raven")) as GameObject;
+        disableBranchCollider(mybird.GetComponent<Collider2D>());
+        mybird.transform.parent = enemies.transform;
+        mybird.transform.position = pos;
+        // BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
+        // birdBS.directionIsRight = directionIsRight;
     }
 
     void addSpider(Vector3 pos){

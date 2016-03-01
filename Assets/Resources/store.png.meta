@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 25c90c36a810e29489243c24458f9bf1
-timeCreated: 1451935628
+timeCreated: 1452962595
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -24,6 +24,20 @@ TextureImporter:
     21300034: button_lg_idle
     21300036: button_lg_pressed
     21300038: button_rg_idle
+    21300040: button_mouse_more
+    21300042: button_spider_more
+    21300044: button_bird_more
+    21300046: button_nuts_air
+    21300048: button_nuts_health
+    21300050: button_nuts_golden
+    21300052: button_fruit_more
+    21300054: button_mush_grow
+    21300056: button_player_coat
+    21300058: button_player_jump
+    21300060: button_timer_more
+    21300062: button_bird_boost
+    21300064: button_spider_boost
+    21300066: button_mouse_boost
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -102,8 +116,8 @@ TextureImporter:
     - name: button_nuts_more
       rect:
         serializedVersion: 2
-        x: 9
-        y: 36
+        x: 12
+        y: 399
         width: 19
         height: 19
       alignment: 0
@@ -112,8 +126,8 @@ TextureImporter:
     - name: button_mush_more
       rect:
         serializedVersion: 2
-        x: 35
-        y: 36
+        x: 12
+        y: 375
         width: 19
         height: 19
       alignment: 0
@@ -132,8 +146,8 @@ TextureImporter:
     - name: button_frog_boost
       rect:
         serializedVersion: 2
-        x: 90
-        y: 36
+        x: 84
+        y: 351
         width: 19
         height: 19
       alignment: 0
@@ -152,8 +166,8 @@ TextureImporter:
     - name: button_frog_more
       rect:
         serializedVersion: 2
-        x: 36
-        y: 7
+        x: 84
+        y: 327
         width: 19
         height: 19
       alignment: 0
@@ -256,6 +270,146 @@ TextureImporter:
         y: 54
         width: 48
         height: 23
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_mouse_more
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 327
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_spider_more
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 327
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_bird_more
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 327
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_nuts_air
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 399
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_nuts_health
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 399
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_nuts_golden
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 399
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_fruit_more
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 399
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_mush_grow
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 375
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_player_coat
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 375
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_player_jump
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 375
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_timer_more
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 375
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_bird_boost
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 351
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_spider_boost
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 351
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: button_mouse_boost
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 351
+        width: 19
+        height: 19
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
