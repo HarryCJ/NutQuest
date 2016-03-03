@@ -23,6 +23,11 @@ public class RavenBehaviourScript : Enemy {
     public Transform nest = null;
     Vector3 nestSearchLoc = new Vector3();
     bool hasNestSearchLoc = false;
+    public bool branchColliding = false;
+	GameObject environment;
+	public WorldScript environment_ws;
+
+
 
     //Looks for closest nut, player, or enemy
     //Swoops to the ground and gets it
@@ -38,6 +43,9 @@ public class RavenBehaviourScript : Enemy {
 		myrigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         mycollider = GetComponent<Collider2D>();
+
+		environment = GameObject.Find("environment");
+		environment_ws = environment.GetComponent<WorldScript>();
 
 		StartCoroutine(waitAction());
 	}
@@ -159,7 +167,7 @@ public class RavenBehaviourScript : Enemy {
 			} else if (nest == null){
 
 				//Make nest
-				StartCoroutine(makeNestAction());
+				StartCoroutine(goToNewNestAction());
 
 			} else {
 
@@ -219,67 +227,122 @@ public class RavenBehaviourScript : Enemy {
    		}
    }
 
-   IEnumerator makeNestAction(){
-   		currentAction = "makeNestAction";
+   IEnumerator goToNewNestAction(){
+   		currentAction = "goToNewNestAction";
 
    		if (hasNestSearchLoc == false){
+
    			//Get Nest location
    			nestSearchLoc = new Vector3(-4.95f, 4.18f);
    			hasNestSearchLoc = true;
-   		} else {
+   		} 
+			
+		bool aboveNest = (transform.position.y-0.5f > nestSearchLoc.y);
 
-   			//Check near nest
+		//Check above nest
+		// if (aboveNest == true && branchColliding == false){
 
+		// 	environment_ws.setBranchCollider(mycollider, false);
+		// 	branchColliding = true;
 
-   		}
+		// }
 
+		//Check near nest
+		if (transform.position.y-1f < nestSearchLoc.y && transform.position.x-0.5f < nestSearchLoc.x &&
+			transform.position.y+1f > nestSearchLoc.y && transform.position.x+0.5f > nestSearchLoc.x
+			//){
+			//if (
+				&& aboveNest == true && branchColliding == false){
 
-		if (isGrounded == false){
-			while (myrigidbody.velocity.y > -0.3f && nestSearchLoc.y > transform.position.y){
-   				yield return new WaitForSeconds(0.25f);
+				environment_ws.setBranchCollider(mycollider, false);
+				branchColliding = true;
+				StartCoroutine(makeNestAction());
+
+			// }
+
+		} else {
+
+			if (isGrounded == false){
+				while (myrigidbody.velocity.y > -0.3f && nestSearchLoc.y > transform.position.y-0.5f){
+	   				yield return new WaitForSeconds(0.25f);
+				}
 			}
+
+	   		isFlapping = true;
+	   		animator.SetBool("isFlapping", isFlapping);
+
+			float forceY = UnityEngine.Random.Range(8f, 10f);//17.5f;
+			float forceX = 0f;
+			float lowerFlapRange = 0.2f;
+			float upperFlapRange = 0.6f;
+
+			bool insideColumn = (nestSearchLoc.x > transform.position.x-3f && nestSearchLoc.x < transform.position.x+3f);
+
+	   		if (aboveNest == false || insideColumn == false){
+	   			forceY += 6f;
+
+	   			upperFlapRange = 0.4f;
+	   		} else {
+				lowerFlapRange = 0.5f;
+
+	   		}
+	   		// else if (nestSearchLoc.y > transform.position.y){
+	   		// 	forceY += 2.5f;
+	   		// } 
+	   		float dif = 0f;
+	   		if (nestSearchLoc.x > transform.position.x){
+	   			dif = transform.position.x - nestSearchLoc.x;
+	   		} else {
+	   			dif = nestSearchLoc.x - transform.position.x;
+	   		}
+	   		forceX = dif*2f;// / 10f;
+
+	   		//cap it
+	   		if (forceX > 0f){
+	   			if (forceX < 1f){
+	   				forceX = 1f;
+	   			} else if (forceX > 10f){
+	   				forceX = 10f;
+	   			}
+	   		} else {
+	   			if (forceX > -1f){
+	   				forceX = -1f;
+	   			} else if (forceX < -10f){
+	   				forceX = -10f;
+	   			}
+	   		}
+
+	   		if (aboveNest == false && insideColumn == true){
+	   			forceX = forceX * -1f;
+	   		}
+
+	   		if ((forceX > 0.0f && directionIsRight == false) || (forceX < -0.0f && directionIsRight == true)){
+	   			changeDirection();
+	   		}
+
+	   		myrigidbody.velocity = new Vector3(myrigidbody.velocity.x, 0f, 0f);
+			myrigidbody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
+	   		yield return new WaitForSeconds(UnityEngine.Random.Range(lowerFlapRange, upperFlapRange));
+
+	   		isFlapping = false;
+	   		animator.SetBool("isFlapping", isFlapping);
+			
+			StartCoroutine(getNextAction());
 		}
-
-   		isFlapping = true;
-   		animator.SetBool("isFlapping", isFlapping);
-
-		float forceY = UnityEngine.Random.Range(15f, 16f);//17.5f;
-		float forceX = 0f;
-
-   		if (nestSearchLoc.y > transform.position.y+0.5f){
-   			forceY += 5f;
-   		}
-   		// else if (nestSearchLoc.y > transform.position.y){
-   		// 	forceY += 2.5f;
-   		// } 
-
-   		float dif = 0f;
-   		if (nestSearchLoc.x > transform.position.x){
-   			dif = transform.position.x - nestSearchLoc.x;
-   		} else {
-   			dif = nestSearchLoc.x - transform.position.x;
-   		}
-   		Debug.Log(dif);
-   		forceX = dif;// / 10f;
-
-   		if ((forceX > 0.0f && directionIsRight == false) || (forceX < -0.0f && directionIsRight == true)){
-   			changeDirection();
-   		}
-
-   		myrigidbody.velocity = new Vector3(myrigidbody.velocity.x, 0f, 0f);
-		myrigidbody.AddForce(new Vector2(forceX, forceY), ForceMode2D.Impulse);
-   		yield return new WaitForSeconds(UnityEngine.Random.Range(0.5f, 0.8f));
-
-   		isFlapping = false;
-   		animator.SetBool("isFlapping", isFlapping);
-		
-		StartCoroutine(getNextAction());
    }
 
    IEnumerator findFoodAction(){
    		currentAction = "findFoodAction";
 
    		yield return new WaitForSeconds(0.1f);
+		
+		StartCoroutine(getNextAction());
+   }
+
+   IEnumerator makeNestAction(){
+   		currentAction = "makeNestAction";
+
+   		yield return new WaitForSeconds(1f);
 		
 		StartCoroutine(getNextAction());
    }

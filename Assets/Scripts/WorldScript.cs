@@ -194,17 +194,10 @@ public class WorldScript : MonoBehaviour {
         // timer = 3;
     }
 
-    public void disableBranchCollider(Collider2D c){
+    public void setBranchCollider(Collider2D c, bool isIgnoring){
         // for (int x = 0; x < branches_foreground_colliders.size; x++) {
         foreach (Collider2D cc in branches_foreground_colliders){
-            Physics2D.IgnoreCollision(cc, c);
-        }
-    }
-
-    public void enableBranchCollider(Collider2D c){
-        // for (int x = 0; x < branches_foreground_colliders.size; x++) {
-        foreach (Collider2D cc in branches_foreground_colliders){
-            Physics2D.IgnoreCollision(cc, c);
+            Physics2D.IgnoreCollision(cc, c, isIgnoring);
         }
     }
 
@@ -938,7 +931,7 @@ public class WorldScript : MonoBehaviour {
         myfrog.transform.parent = enemies.transform;
       	myfrog.transform.position = pos;
         FrogBehaviourScript frogBS = myfrog.GetComponent<FrogBehaviourScript>();
-        disableBranchCollider(myfrog.GetComponent<Collider2D>());
+        setBranchCollider(myfrog.GetComponent<Collider2D>(), true);
         frogBS.directionIsRight = directionIsRight;
     }
 
@@ -947,12 +940,13 @@ public class WorldScript : MonoBehaviour {
         mybird.transform.parent = enemies.transform;
       	mybird.transform.position = pos;
         BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
+        setBranchCollider(mybird.GetComponent<Collider2D>(), true);
         birdBS.directionIsRight = directionIsRight;
     }
 
     void addRaven(Vector3 pos, bool directionIsRight){
         GameObject mybird = Instantiate(Resources.Load("Prefabs/raven")) as GameObject;
-        disableBranchCollider(mybird.GetComponent<Collider2D>());
+        setBranchCollider(mybird.GetComponent<Collider2D>(), true);
         mybird.transform.parent = enemies.transform;
         mybird.transform.position = pos;
         // BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
@@ -964,6 +958,7 @@ public class WorldScript : MonoBehaviour {
       	GameObject myspider = Instantiate(Resources.Load("Prefabs/spider_web")) as GameObject;
         myspider.transform.parent = enemies.transform;
       	myspider.transform.position = pos;
+        setBranchCollider(myspider.GetComponent<Collider2D>(), true);
         SpiderBehaviourScript spiderBS = myspider.GetComponent<SpiderBehaviourScript>();
 
   //       foreach (Transform child in myspider.transform){
