@@ -1,3 +1,5 @@
+ #if UNITY_EDITOR
+     // Editor specific code here
 using UnityEditor;
 using UnityEngine;
 using System;
@@ -44,3 +46,4 @@ public class PolygonCollider2DEditor : EditorWindow {
 	}
 */
 }
+ #endif

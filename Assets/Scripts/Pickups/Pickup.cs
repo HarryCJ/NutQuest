@@ -19,8 +19,8 @@ public class Pickup : MonoBehaviour {
 
 	}
 
-	public virtual int getNutPoints(){
-		return 0;
+	public virtual float getNutPoints(){
+		return 0f;
 	}
 
 	public float getCenterY(){

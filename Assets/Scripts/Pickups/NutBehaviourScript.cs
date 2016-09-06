@@ -6,6 +6,7 @@ public class NutBehaviourScript : Pickup {
 
     Rigidbody2D myrigidbody;
     public bool isGrowing = true;
+    public float limit = 20f;
 
 	public virtual void nutStart(){
 		// Debug.Log("ENEMY DIES!!!");
@@ -22,16 +23,17 @@ public class NutBehaviourScript : Pickup {
         } else {
             myrigidbody.isKinematic = false;
         }
+        limit = 14f;//UnityEngine.Random.Range(10f, 20f);
     }
 
 	// Update is called once per frame
 	void FixedUpdate () {
         if (isGrowing){
-            if (transform.localScale.x < 10f){
+            if (transform.localScale.x < limit){
                 transform.position = new Vector3(transform.position.x, transform.position.y-0.005f, transform.position.z);
                 transform.localScale = new Vector2(transform.localScale.x+0.1f,transform.localScale.x+0.1f);
-            } else if (transform.localScale.x > 10f) {
-                transform.localScale = new Vector2(10f, 10f);
+            } else if (transform.localScale.x > limit) {
+                transform.localScale = new Vector2(limit, limit);
             }
         }
 	}
@@ -42,11 +44,11 @@ public class NutBehaviourScript : Pickup {
         yield return new WaitForSeconds(delay);
         isGrowing = false;
         myrigidbody.isKinematic = false;
-        transform.localScale = new Vector2(10f, 10f);
+        transform.localScale = new Vector2(limit, limit);
     }
 
-    public override int getNutPoints(){
-        return 1;
+    public override float getNutPoints(){
+        return 1f;
     }
 
 }

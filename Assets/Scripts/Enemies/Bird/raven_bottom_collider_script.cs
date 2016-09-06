@@ -16,22 +16,34 @@ public class raven_bottom_collider_script : MonoBehaviour {
 
 	}
 
+	// string[] flyingActions = { "goToNewNestAction", "findFoodAction" };
+
+	bool groundValid(Collider2D other){
+		// foreach (string s in flyingActions)
+		// {
+		// 	if (s == parent.currentAction){
+		// 		return false;
+		// 	}
+		// }
+		return !parent.isFlying && (other.tag.Contains("phys") || other.tag.Contains("env") || other.name == "player");
+	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
-		if (other.tag.Contains("phys") || other.tag.Contains("env") || other.name == "player"){
-	        parent.isGrounded = true;
+		if (groundValid(other)){
+	        parent.setGrounded(true);
 		}
     }
     void OnTriggerStay2D(Collider2D other)
     {
-		if (other.tag.Contains("phys") || other.tag.Contains("env") || other.name == "player"){
-	        parent.isGrounded = true;
+		if (groundValid(other)){
+	        parent.setGrounded(true);
 		}
     }
     void OnTriggerExit2D(Collider2D other)
     {
 		if (other.tag.Contains("phys") || other.tag.Contains("env") || other.name == "player"){
-	        parent.isGrounded = false;
+	        parent.setGrounded(false);
 		}
     }
 }

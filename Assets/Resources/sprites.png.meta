@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e54d69019b927ec46bb5fc852342fba5
-timeCreated: 1456694331
+timeCreated: 1472412941
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -118,6 +118,13 @@ TextureImporter:
     21300220: bird_nest
     21300222: raven_egg
     21300224: bird_nest_bg
+    21300226: baby_bird_1
+    21300228: baby_bird_2
+    21300230: baby_bird_3
+    21300232: baby_bird_biting
+    21300234: glow_b_1
+    21300236: glow_b_2
+    21300238: glow_b_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -1156,10 +1163,10 @@ TextureImporter:
     - name: raven_egg
       rect:
         serializedVersion: 2
-        x: 403
+        x: 400
         y: 171
-        width: 7
-        height: 8
+        width: 13
+        height: 15
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1170,6 +1177,76 @@ TextureImporter:
         y: 157
         width: 23
         height: 7
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: baby_bird_1
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 131
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: baby_bird_2
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 131
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: baby_bird_3
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 131
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: baby_bird_biting
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 131
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_b_1
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 130
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_b_2
+      rect:
+        serializedVersion: 2
+        x: 249
+        y: 119
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: glow_b_3
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 106
+        width: 16
+        height: 10
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -13,8 +13,8 @@ public class AppleBehaviourScript : NutBehaviourScript {
 	//
 	// }
 
-    public override int getNutPoints(){
-        return 5;
+    public override float getNutPoints(){
+        return 5f;
     }
 
 	public override void nutStart(){

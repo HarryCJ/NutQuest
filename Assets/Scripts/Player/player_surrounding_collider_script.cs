@@ -29,6 +29,14 @@ public class player_surrounding_collider_script : MonoBehaviour {
 				// parent.addNutPoints(myPickup.getNutPoints());
 				Destroy(other.gameObject);
 			}
+		} else if (other.tag.Contains("snowflake")){
+
+			SnowBehaviourScript sbs = other.GetComponent<SnowBehaviourScript>();
+			if (sbs.isRed){
+				parent.getHit(1, parent.directionIsRight);
+			}
+
+
 		}
     }
     void OnTriggerStay2D(Collider2D other)

@@ -64,8 +64,11 @@ public class WorldScript : MonoBehaviour {
     GameObject branches_foreground;
     GameObject branches_shadows;
     GameObject branch_shadow_template;
+    GameObject trunk;
+    GameObject tree_walls_collider;
+    GameObject trunk_behind;
 
-    List<Collider2D> branches_foreground_colliders  = new List<Collider2D>();
+    public List<Collider2D> branches_foreground_colliders  = new List<Collider2D>();
 
     SpriteRenderer landscape_mask_snow_sr;
     SpriteRenderer grass_foreground_sr;
@@ -80,6 +83,13 @@ public class WorldScript : MonoBehaviour {
     public float mushDelay = 6f;
     public float spiderDelay = 20f;
     public float birdDelay = 5f;
+
+    public bool inTree = false;
+    public bool inTreeEntrance = false;
+    public bool inTreeState = false;
+
+    SpriteRenderer trunk_sr;
+    Color trunk_sr_color;
 
     GameObject storeUI;
 
@@ -139,6 +149,12 @@ public class WorldScript : MonoBehaviour {
         branches_shadows = GameObject.Find("branches_shadows");
         branch_shadow_template = GameObject.Find("branch_shadow_template");
 
+        trunk = GameObject.Find("trunk");
+        trunk_sr = trunk.GetComponent<SpriteRenderer>();
+        trunk_sr_color = trunk_sr.color;
+        tree_walls_collider = GameObject.Find("tree_walls_collider");
+        trunk_behind = GameObject.Find("trunk_behind");
+
         foreach (Transform child in branches_foreground.transform){
 
             branches_foreground_colliders.Add(child.GetComponent<Collider2D>());
@@ -182,6 +198,7 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(spawnFrogs());
         StartCoroutine(spawnSpiders());
         StartCoroutine(spawnClouds());
+
         // StartCoroutine(brownLeaves());
 
         StartCoroutine(CountdownWave());
@@ -189,9 +206,44 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(spawnNuts());
 
         StartCoroutine(blowSnow());
-        addRaven(new Vector3(0f, 0f, 0f), true);
+        // addRaven(new Vector3(0f, 0f, 0f), true);
         season = "summer";
         // timer = 3;
+
+        // addSpider(new Vector3(3.6f, 5.4f));
+    }
+
+    public void calculateInTree(){
+        if (inTreeState == true){
+            if (inTree == false && inTreeEntrance == true){
+                leaveTree();
+            }
+        } else {
+            if (inTreeEntrance == true){
+                enterTree();
+            }
+        }
+    }
+
+    public void enterTree(){
+        Debug.Log("enterTree");
+        inTreeState = true;
+
+        trunk_sr_color.a = 0.5f;
+        trunk_sr.color = trunk_sr_color;
+        tree_walls_collider.SetActive(true);
+        trunk_behind.SetActive(true);
+
+    }
+
+    public void leaveTree(){
+        Debug.Log("leaveTree");
+        inTreeState = false;
+
+        trunk_sr_color.a = 1f;
+        trunk_sr.color = trunk_sr_color;
+        tree_walls_collider.SetActive(false);
+        trunk_behind.SetActive(false);
     }
 
     public void setBranchCollider(Collider2D c, bool isIgnoring){
@@ -201,8 +253,8 @@ public class WorldScript : MonoBehaviour {
         }
     }
 
-    public void addClockPoints(int num){
-        timer += num;
+    public void addClockPoints(float num){
+        timer += (int) num;
         StartCoroutine(WaveDisplayTransition());
     } 
 
@@ -235,7 +287,15 @@ public class WorldScript : MonoBehaviour {
 
                 if (nutAreaCollider.OverlapPoint(newV)){
                     foundV = true;
+                    foreach (Transform e in enemies.transform){
+                        if (e.position.x +0.5f > newV.x && e.position.x -0.5f < newV.x &&
+                            e.position.y +0.5f > newV.y && e.position.y -0.5f < newV.y ){
+                            foundV = false;
+
+                        }
+                    }
                 }
+
                 foundTenacity++;
             }
 
@@ -257,6 +317,8 @@ public class WorldScript : MonoBehaviour {
         } else {
             mynut = Instantiate(Resources.Load("Prefabs/nut")) as GameObject;
         }
+        mynut.transform.parent = pickups.transform;
+        setBranchCollider(mynut.GetComponent<Collider2D>(), true);
         mynut.transform.position = pos;
     }
 
@@ -267,16 +329,22 @@ public class WorldScript : MonoBehaviour {
             float delay = UnityEngine.Random.Range(frogDelay, frogDelay+1f);
             // delay = UnityEngine.Random.Range(0.5f, 0.5f);
             yield return new WaitForSeconds(delay);
+            // if (UnityEngine.Random.Range(0, 3) == 0){
 
-            if (UnityEngine.Random.Range(0, 2) == 0){
+                if (UnityEngine.Random.Range(0, 2) == 0){
+                    addFrog(new Vector3(25, -3, 0), false);
+                } else {
+                    addFrog(new Vector3(-25, -3, 0), true);
+                }
+            // } else {
 
-                addFrog(new Vector3(25, -3, 0), false);
+            //     if (UnityEngine.Random.Range(0, 2) == 0){
+            //         addToad(new Vector3(25, -3, 0), false);
+            //     } else {
+            //         addToad(new Vector3(-25, -3, 0), true);
+            //     }
 
-            } else {
-
-                addFrog(new Vector3(-25, -3, 0), true);
-
-            }
+            // }
 
         }
     }
@@ -332,19 +400,37 @@ public class WorldScript : MonoBehaviour {
     {
         while (true)
         {
-            float delay = UnityEngine.Random.Range(birdDelay, birdDelay+1f);
+            float upperLimit = 2f;
+
+            if (season == "summer"){
+
+                upperLimit = 1f;
+
+            }
+            
+            float delay = UnityEngine.Random.Range(birdDelay, birdDelay+upperLimit);
             // delay = UnityEngine.Random.Range(0.5f, 0.5f);
             yield return new WaitForSeconds(delay);
 
-            if (UnityEngine.Random.Range(0, 2) == 0){
-
-                addBird(new Vector3(25, 4, 0), false);
-
-            } else {
+            if (season == "summer"){
 
                 addBird(new Vector3(-25, 4, 0), true);
 
+            } else {
+
+                addBird(new Vector3(25, 4, 0), false);
+
             }
+
+            // if (UnityEngine.Random.Range(0, 2) == 0){
+
+            //     addBird(new Vector3(25, 4, 0), false);
+
+            // } else {
+
+            //     addBird(new Vector3(-25, 4, 0), true);
+
+            // }
         }
     }
 
@@ -590,7 +676,13 @@ public class WorldScript : MonoBehaviour {
 
                     float posX = (float) snowPosList[i]-30;
 
-                    mysnow.transform.position = new Vector3(posX, 20f, UnityEngine.Random.Range(6f, -15f));
+                    mysnow.transform.position = new Vector3(posX, 20f, 0f);
+
+                    // if (mysnow.transform.position.z > -2 && mysnow.transform.position.z < 2){
+                    if (UnityEngine.Random.Range(0, 15) == 0){
+                        mysnow.GetComponent<BoxCollider2D>().enabled = true;
+                        mysnow.GetComponent<SnowBehaviourScript>().startBleeping();
+                    }
 
                     Rigidbody2D snowrigidbody = mysnow.GetComponent<Rigidbody2D>();
 
@@ -834,31 +926,129 @@ public class WorldScript : MonoBehaviour {
         switch (s){
 
             case "nuts_increase":
-                storeUIItemTitleText_text.text = "Increase Nuts";
-                storeUIItemDescText_text.text = "Makes nuts grow faster!";
+                storeUIItemTitleText_text.text = "Sprout Nuts";
+                storeUIItemDescText_text.text = "Make nuts grow faster!";
                 current_upgrade_max = 3;
                 upgrade_cost_levels = new int[]{25,50,100,200};
                 break;
 
-            case "frogs_increase":
-                storeUIItemTitleText_text.text = "Increase Frogs";
-                storeUIItemDescText_text.text = "Makes more frogs appear!";
-                current_upgrade_max = 3;
-                upgrade_cost_levels = new int[]{25,50,100,200};
+            case "nut_life":
+                storeUIItemTitleText_text.text = "Love Nuts";
+                storeUIItemDescText_text.text = "Nuts will live longer!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "nut_midair":
+                storeUIItemTitleText_text.text = "Flying Nuts";
+                storeUIItemDescText_text.text = "Bonus points for flying nuts!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "buy_golden_nut":
+                storeUIItemTitleText_text.text = "Golden Nuts";
+                storeUIItemDescText_text.text = "Get the golden nut!!!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "buy_fruit":
+                storeUIItemTitleText_text.text = "Buy Fruit";
+                storeUIItemDescText_text.text = "Put it all on black!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
                 break;
 
             case "mush_increase":
-                storeUIItemTitleText_text.text = "Increase Mushrooms";
-                storeUIItemDescText_text.text = "Makes mushrooms grow more often!";
+                storeUIItemTitleText_text.text = "Fertilize Mushies";
+                storeUIItemDescText_text.text = "Make mushrooms grow more often!";
                 current_upgrade_max = 3;
                 upgrade_cost_levels = new int[]{25,50,100,200};
                 break;
 
+            case "mush_grow":
+                storeUIItemTitleText_text.text = "Grow Mushies";
+                storeUIItemDescText_text.text = "Make the mushies get high!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "fur_coat":
+                storeUIItemTitleText_text.text = "You Hairy";
+                storeUIItemDescText_text.text = "Make the snow hurt less!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "player_jump":
+                storeUIItemTitleText_text.text = "You High";
+                storeUIItemDescText_text.text = "Jump higher!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "summer_length":
+                storeUIItemTitleText_text.text = " Days of Summer";
+                storeUIItemDescText_text.text = "Make the summers last longer!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "frogs_increase":
+                storeUIItemTitleText_text.text = "Spawn Frogs";
+                storeUIItemDescText_text.text = "Make more frogs appear!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "birds_increase":
+                storeUIItemTitleText_text.text = "Hatch Birds";
+                storeUIItemDescText_text.text = "Make more birds appear!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "rats_increase":
+                storeUIItemTitleText_text.text = "Birth Rats";
+                storeUIItemDescText_text.text = "Make more rats appear!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "spider_increase":
+                storeUIItemTitleText_text.text = "Summon Spiders";
+                storeUIItemDescText_text.text = "Make more spiders appear!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
             case "frog_boost":
-                storeUIItemTitleText_text.text = "Increase Frog Boost";
-                storeUIItemDescText_text.text = "Makes jumping on frogs boost you higher!";
-                current_upgrade_max = 3;
-                upgrade_cost_levels = new int[]{25,50,100,200};
+                storeUIItemTitleText_text.text = "Boost Frog";
+                storeUIItemDescText_text.text = "Boost higher off frogs!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "bird_boost":
+                storeUIItemTitleText_text.text = "Boost Bird";
+                storeUIItemDescText_text.text = "Boost higher off birds!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "spider_boost":
+                storeUIItemTitleText_text.text = "Boost Rat";
+                storeUIItemDescText_text.text = "Boost higher off rats!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
+                break;
+
+            case "rat_boost":
+                storeUIItemTitleText_text.text = "Boost Spider";                
+                storeUIItemDescText_text.text = "Boost higher off spiders!";
+                // current_upgrade_max = 3;
+                // upgrade_cost_levels = new int[]{25,50,100,200};
                 break;
 
             default:
@@ -926,10 +1116,19 @@ public class WorldScript : MonoBehaviour {
         StartCoroutine(startNextWave());
     }
 
+    public void addToad(Vector3 pos, bool directionIsRight){
+      	GameObject myToad = Instantiate(Resources.Load("Prefabs/toad")) as GameObject;
+        myToad.transform.parent = enemies.transform;
+      	myToad.transform.position = pos;
+        ToadBehaviourScript toadBS = myToad.GetComponent<ToadBehaviourScript>();
+        setBranchCollider(myToad.GetComponent<Collider2D>(), true);
+        toadBS.directionIsRight = directionIsRight;
+    }
+
     public void addFrog(Vector3 pos, bool directionIsRight){
-      	GameObject myfrog = Instantiate(Resources.Load("Prefabs/frog")) as GameObject;
+        GameObject myfrog = Instantiate(Resources.Load("Prefabs/frog")) as GameObject;
         myfrog.transform.parent = enemies.transform;
-      	myfrog.transform.position = pos;
+        myfrog.transform.position = pos;
         FrogBehaviourScript frogBS = myfrog.GetComponent<FrogBehaviourScript>();
         setBranchCollider(myfrog.GetComponent<Collider2D>(), true);
         frogBS.directionIsRight = directionIsRight;
@@ -946,9 +1145,15 @@ public class WorldScript : MonoBehaviour {
 
     void addRaven(Vector3 pos, bool directionIsRight){
         GameObject mybird = Instantiate(Resources.Load("Prefabs/raven")) as GameObject;
-        setBranchCollider(mybird.GetComponent<Collider2D>(), true);
+        // setBranchCollider(mybird.GetComponent<Collider2D>(), true);
         mybird.transform.parent = enemies.transform;
         mybird.transform.position = pos;
+
+        foreach (Transform child in mybird.transform){
+            if (child.name == "sprite"){
+                setBranchCollider(child.GetComponent<Collider2D>(), true);
+            }
+        }
         // BirdBehaviourScript birdBS = mybird.GetComponent<BirdBehaviourScript>();
         // birdBS.directionIsRight = directionIsRight;
     }
@@ -958,17 +1163,13 @@ public class WorldScript : MonoBehaviour {
       	GameObject myspider = Instantiate(Resources.Load("Prefabs/spider_web")) as GameObject;
         myspider.transform.parent = enemies.transform;
       	myspider.transform.position = pos;
-        setBranchCollider(myspider.GetComponent<Collider2D>(), true);
-        SpiderBehaviourScript spiderBS = myspider.GetComponent<SpiderBehaviourScript>();
+        // SpiderBehaviourScript spiderBS = myspider.GetComponent<SpiderBehaviourScript>();
 
-  //       foreach (Transform child in myspider.transform){
-  //           if (child.name == "spider_rope_4"){
-		// 		HingeJoint2D spider_rope_4_joint = child.GetComponent<HingeJoint2D>();
-  //               spider_rope_4_joint.connectedAnchor = new Vector2(pos.x, pos.y+13f);
-		// 	}
-		// }
-
-        // frogBS.directionIsRight = directionIsRight;
+        foreach (Transform child in myspider.transform){
+            if (child.name == "spider"){
+                setBranchCollider(child.GetComponent<Collider2D>(), true);
+            }
+        }
     }
 
     // Update is called once per frame

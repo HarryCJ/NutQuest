@@ -12,15 +12,17 @@ public class PlayerBehaviourScript : MonoBehaviour {
     public bool isRunning;
 	public bool isProtected = false;
 
-	bool directionIsRight = true;
+	public bool directionIsRight = true;
 
     public int jumpingTimer = -1;
     Animator animator;
     Animator tailAnimator;
-    Rigidbody2D myrigidbody;
+    public Rigidbody2D myrigidbody;
 	player_bottom_collider_script player_bottom_collider;
     int lastBoost = 0;
 	public bool isBoosting;
+
+	Collider2D mycollider;
 
 	GameObject tail = null;
 	GameObject tail_1 = null;
@@ -56,7 +58,7 @@ public class PlayerBehaviourScript : MonoBehaviour {
 
 	Vector3 tail_5_pendingScale = new Vector3();
 
-	public int nuts = 0;
+	public float nuts = 0f;
 	public int boostCombo = 1;
 
 	SpriteRenderer my_sr = null;
@@ -74,13 +76,22 @@ public class PlayerBehaviourScript : MonoBehaviour {
 
 	public float frogBoost = 0f;
 
+	public bool isBranchColliding = true;
+
+	GameObject main_camera;
+	CameraBehaviourScript main_camera_s;
+
     // Use this for initialization
     void Start(){
 
 		my_sr = GetComponent<SpriteRenderer>();
+		mycollider = GetComponent<Collider2D>();
 
 		environment = GameObject.Find("environment");
 		environment_ws = environment.GetComponent<WorldScript>();
+
+		main_camera = GameObject.Find("main_camera");
+		main_camera_s = main_camera.GetComponent<CameraBehaviourScript>();
 
 		nutCounterUIText.Add(GameObject.Find("nutCounterUIText1"));
 		nutCounterUITextText.Add(nutCounterUIText[0].GetComponent<Text>());
@@ -179,7 +190,12 @@ public class PlayerBehaviourScript : MonoBehaviour {
 
         if (isJumping == true){
             if (jumpingTimer > 0)
-            {
+            {	
+
+				// tail_pendingPos = Vector3.Lerp(tail.transform.localPosition, new Vector3(-0.07f, -0.005f, 0f), Time.deltaTime*30);
+
+				// transform.localEulerAngles = Vector3.Lerp(tail.transform.localPosition, new Vector3(0f, 0f, -40f), Time.deltaTime*30);
+
                 if (jumpingTimer < 10)
                 {
 					if (isBoosting == true){
@@ -230,6 +246,11 @@ public class PlayerBehaviourScript : MonoBehaviour {
         else if (myrigidbody.velocity.y < -15f)
         {
             myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, -15f);
+        }
+
+        if (isBranchColliding == false && myrigidbody.velocity.y <= 0f){
+        	isBranchColliding = true;
+            environment_ws.setBranchCollider(mycollider, false);
         }
 
         // animator.SetFloat("velocity.x", velocity.x);
@@ -386,6 +407,15 @@ public class PlayerBehaviourScript : MonoBehaviour {
         // tailAnimator.SetBool("isRunning", isRunning);
     }
 
+    public void setGrounded(bool state){
+    	if (isGrounded != state){
+    		// if (isGrounded == false){
+    		main_camera_s.setCameraBaseline();
+    		// }
+    		isGrounded = state;
+    	}
+    }
+
 	public float getAccurateRot(float r){
 		return (r > 180) ? r - 360 : r;
 	}
@@ -398,7 +428,7 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		boostCombo = 1;
 	}
 
-	public void addNutPoints(int num){
+	public void addNutPoints(float num){
 		nuts += (num * boostCombo);
         StartCoroutine(nutCounterTransition());
 	}
@@ -420,11 +450,12 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		} else if (nutString.Length == 2){
 			nutCounterUITextText[1].text = nutString.Substring(0, 1);
 			nutCounterUITextText[3].text = nutString.Substring(1, 1);
-		} else if (nutString.Length == 3){
+		} else if (nutString.Length >= 3){
 			nutCounterUITextText[0].text = nutString.Substring(0, 1);
 			nutCounterUITextText[2].text = nutString.Substring(1, 1);
 			nutCounterUITextText[4].text = nutString.Substring(2, 1);
 		}
+		
 
 		// nutCounterUITextText[2].fontSize = 100;
 		foreach (Text t in nutCounterUITextText){
@@ -505,7 +536,7 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		}
     }
 
-	public void addPointsAndSparkle(int num, GameObject child, bool clockEnabled){
+	public void addPointsAndSparkle(float num, GameObject child, bool clockEnabled){
 
 		GameObject mynutmarker = Instantiate(Resources.Load("Prefabs/nut_point_marker")) as GameObject;
 
@@ -539,6 +570,8 @@ public class PlayerBehaviourScript : MonoBehaviour {
 		jumpingTimer = jumpAmount;
 		isBoosting = true;
 
+        isBranchColliding = false;
+        environment_ws.setBranchCollider(mycollider, true);
 	}
 
 	IEnumerator boostComboTransition(){

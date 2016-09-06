@@ -46,6 +46,8 @@ public class FrogBehaviourScript : Enemy
 	Rigidbody2D playerRB;
 	Collider2D playercollider;
     public GameObject enemies;
+	WorldScript environment_ws;
+	GameObject environment;
 
 	public virtual void frogStart(){
 	}
@@ -58,6 +60,9 @@ public class FrogBehaviourScript : Enemy
 		playerBS = player.GetComponent<PlayerBehaviourScript>();
 		playerRB = player.GetComponent<Rigidbody2D>();
 		playercollider = player.GetComponent<Collider2D>();
+
+		environment = GameObject.Find("environment");
+		environment_ws = environment.GetComponent<WorldScript>();
 
         enemies = GameObject.Find("enemies");
 		myrigidbody = GetComponent<Rigidbody2D>();
@@ -93,7 +98,10 @@ public class FrogBehaviourScript : Enemy
 		Physics2D.IgnoreCollision(tongue_end_collider, frog_bottom_collider);
 		Physics2D.IgnoreCollision(tongue_end_collider, mycollider);
 
+		animator.SetBool("isTransforming", false);
 		frogStart();
+
+		StartCoroutine(checkOut());
     }
 
 	public virtual void frogFixedUpdate(){
@@ -227,7 +235,23 @@ public class FrogBehaviourScript : Enemy
 	public virtual void frogConsume(Collider2D pickup) {
 		Pickup p = pickup.GetComponent<Pickup>();
 		if (p.level > 1){
-			StartCoroutine(evolveIntoToad());
+			StartCoroutine(transformIntoToad());
+		}
+   }
+
+   IEnumerator transformIntoToad(){
+
+		animator.SetBool("isTransforming", true);
+		yield return new WaitForSeconds(UnityEngine.Random.Range(1f, 2f));
+
+		if (isDead == false){
+
+	   		if (transform.localScale.x > 0f){
+				environment_ws.addToad(transform.position, true);
+			} else {
+				environment_ws.addToad(transform.position, true);
+			}
+			Destroy(gameObject);
 		}
    }
 

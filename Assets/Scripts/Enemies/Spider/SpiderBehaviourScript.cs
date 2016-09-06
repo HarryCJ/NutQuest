@@ -34,6 +34,7 @@ public class SpiderBehaviourScript : Enemy {
 	BoxCollider2D spider_bottom_collider_c;
 	public bool directionIsRight = true;
 	Vector2 moveTarget;
+	public bool canClimb = false;
 	public bool isClimbing = false;
 
     GameObject player;
@@ -41,7 +42,7 @@ public class SpiderBehaviourScript : Enemy {
 
 	public bool isJumping = false;
 
-	public bool isDescending = true;
+	public bool isDescending = false;
 	// public bool isWaiting = false;
 	public bool isAscending = false;
 	public int lastGrab = 200;
@@ -130,10 +131,13 @@ public class SpiderBehaviourScript : Enemy {
 		}
 
 		startHanging();
+
+		StartCoroutine(checkOut());
 		// upTarget = new Vector2(spider_rope_4_joint.connectedAnchor.x, spider_rope_4_joint.connectedAnchor.y+2f);
 	}
 
 	public void startHanging(){
+		Debug.Log("startHanging");
 
 		// moveTarget = new Vector2(transform.position.x, transform.position.y-1.5f);
 
@@ -141,6 +145,8 @@ public class SpiderBehaviourScript : Enemy {
 		// 	spider_rope_joints[x].connectedAnchor = new Vector2(0f, 0f);
 		// 	spider_rope_joints[x].anchor = new Vector2(0f, 0f);
 		// }
+		isClimbing = false;
+		transform.localEulerAngles = new Vector3(0f, 0f, 0f);
 
 		spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor = new Vector2(transform.position.x, transform.position.y);
 
@@ -154,15 +160,21 @@ public class SpiderBehaviourScript : Enemy {
 
 		isHanging = true;
 
+		isDescending = true;
+		isAscending = false;
+
 		StartCoroutine(waitDelay());
 
 	}
 
 	public void stopHanging(){
+		Debug.Log("stopHanging");
 
 		for(int x = spider_ropes.Count-1; x >= 0; x--){
 			spider_ropes[x].gameObject.SetActive(false);
 		}
+
+		// transform.position = spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor;
 
 		myrigidbody.isKinematic = true;
 		spiderRopeJoint.enabled = false;
@@ -171,16 +183,73 @@ public class SpiderBehaviourScript : Enemy {
 		isWaiting = false;
 		isMoving = false;
 
+		isDescending = false;
+		isAscending = false;
+
+		StartCoroutine(moveToBranch());
+		// if (canClimb == true){
+		// 	// isClimbing = true;
+		// 	// StartCoroutine(hangDelay());
+		// } else {
+		// 	StartCoroutine(moveToBranch());
+		// }
+	}
+
+    public IEnumerator moveToBranch(){
+
+		while(transform.position.x != spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x || transform.position.y != spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y){
+
+			float newX = transform.position.x;
+			float newY = transform.position.y;
+
+			if (transform.position.x > spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x){
+				newX -= 0.05f;
+			} else if (transform.position.x < spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x){
+				newX += 0.05f;
+			}
+
+			if (transform.position.y > spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y){
+				newY -= 0.05f;
+			} else if (transform.position.y < spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y){
+					newY += 0.05f;
+			}
+
+			transform.position = new Vector3(newX, newY, 0f);
+
+			if (transform.position.y-0.1f < spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y && transform.position.x-0.1 < spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x &&
+				transform.position.y+0.1f > spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y && transform.position.x+0.1 > spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x){
+				transform.position = new Vector3(spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x, spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y, 0f);
+			}
+
+
+			yield return new WaitForSeconds(0.025f);
+		}
+
+		isClimbing = true;
+		StartCoroutine(hangDelay());
+	}
+
+
+    public IEnumerator hangDelay(){
+
+	    yield return new WaitForSeconds(8f);
+
+		startHanging();
 	}
 
 	// Update is called once per frame
 	void FixedUpdate () {
 
+		float myAngle2 = transform.eulerAngles.z;
+		myAngle2 = myAngle2 / 90f;
+		// Debug.Log("myAngle2");
+		// Debug.Log(myAngle2);
+
 		if (isGrabbing == false){
 			lastGrab++;
 		}
 
-		if (isDead == false){
+		if (isDead == false && (myAngle2 > 3.5f || myAngle2 < 0.5f)){
 
 			if (isGrounded == true){
 
@@ -190,29 +259,12 @@ public class SpiderBehaviourScript : Enemy {
 
 			} else if (isHanging == true) {
 
-				if (isHanging == true && isGrabbing == true && grabObject != null){
+				if (isGrabbing == true && grabObject == null){
+					isGrabbing = false;
+				}
+				if (isGrabbing == true){
 					grabObject.gameObject.transform.position = new Vector2(spider_grab_collider.position.x, spider_grab_collider.position.y-0.5f);
-					// spider_rope_1.transform.localScale = new Vector3(1f, spider_rope_1.transform.localScale.y-0.1f, 1f);
-					// spider_rope_2.transform.localScale = new Vector3(1f, spider_rope_2.transform.localScale.y-0.1f, 1f);
-					// spider_rope_3.transform.localScale = new Vector3(1f, spider_rope_3.transform.localScale.y-0.1f, 1f);
-					// spider_rope_4.transform.localScale = new Vector3(1f, spider_rope_4.transform.localScale.y-0.1f, 1f);
-				} 
-
-
-				// else if (spider_rope_4_joint.connectedAnchor.y > 3f) {
-
-				// 	RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector3.down);
-
-				// 	for (int i = 0; i < hits.Length; i++) {
-			 //            RaycastHit2D hit = hits[i];
-				// 		// Debug.Log(hit.collider.name);
-				// 		if (hit.collider.name != transform.name && (hit.collider.name == "player" || hit.collider.tag.Contains("enemy"))){
-				// 			isAscending = false;
-				// 			isDescending = true;
-				// 			// moveTarget = new Vector2(spider_rope_4_joint.connectedAnchor.x, -3f);
-				// 		}
-				// 	}
-				// }
+				}
 
 				RaycastHit2D[] hits = Physics2D.BoxCastAll(transform.position, new Vector2(0.6f, 0.6f), 0f, Vector3.down);
 
@@ -221,10 +273,10 @@ public class SpiderBehaviourScript : Enemy {
 			            RaycastHit2D hit = hits[i];
 						if (hit.collider.name != transform.name && (hit.collider.name == "player" || hit.collider.tag.Contains("enemy") || hit.collider.tag.Contains("pickup"))){
 							if (hit.collider.tag.Contains("phys")){
-								Debug.Log(hit.collider.name);
 								isMoving = true;
 								isWaiting = false;
 								isDropping = true;
+								StartCoroutine(dropDelay());
 								isDescending = true;
 								isAscending = false;
 							}
@@ -235,82 +287,64 @@ public class SpiderBehaviourScript : Enemy {
 				if (isWaiting == false && isMoving == true){
 
 					if (isDescending == true){
+						Debug.Log("descending");
 
-						// RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector3.down);
+						if (spider_ropes[0].transform.localScale.y > 10f) {
+							Debug.Log("1");
 
-						for (int i = 0; i < hits.Length; i++) {
-				            RaycastHit2D hit = hits[i];
-							if (hit.collider.name != transform.name){
-								if (hit.collider.tag.Contains("env")){
-									// Debug.Log( hit.point.x);
-									// Debug.Log( hit.point.y);
-									if ((transform.position.y - hit.point.y) < 1f){
-										// Debug.Log( hit.transform.name);
-										// Debug.Log( hit.point.x);
-										// Debug.Log( hit.point.y);
-										isDescending = false;
-										isAscending = true;
-										isDropping = false;
+							isDescending = false;
+							isAscending = true;
+							isDropping = false;
+						} else {
+							Debug.Log("2");
+
+							for (int i = 0; i < hits.Length; i++) {
+					            RaycastHit2D hit = hits[i];
+								if (hit.collider.name != transform.name){
+									if (hit.collider.tag.Contains("env") && !hit.collider.tag.Contains("climbable")){
+
+										if ((transform.position.y - hit.point.y) < 1f){
+											isDescending = false;
+											isAscending = true;
+											isDropping = false;
+										}
 									}
 								}
-								//  else if (hit.collider.tag.Contains("phys")){
-								// 	Debug.Log(hit.collider.name);
-								// 	isMoving = true;
-								// 	isWaiting = false;
-								// 	isDropping = true;
-								// }
 							}
 						}
+						Debug.Log("3");
 
-						for(int x = 0; x < spider_ropes.Count; x++){
+						if (isDescending == true){
+							Debug.Log("4");
+
 							if (isDropping == true){
-								spider_ropes[x].localScale = new Vector3(1f, spider_ropes[x].transform.localScale.y+0.06f, 1f);
+								for(int x = 0; x < spider_ropes.Count; x++){
+									spider_ropes[x].localScale = new Vector3(1f, spider_ropes[x].transform.localScale.y+0.06f, 1f);
+								}
 							} else {
-								spider_ropes[x].localScale = new Vector3(1f, spider_ropes[x].transform.localScale.y+0.015f, 1f);
+								for(int x = 0; x < spider_ropes.Count; x++){
+									spider_ropes[x].localScale = new Vector3(1f, spider_ropes[x].transform.localScale.y+0.015f, 1f);
+								}
 							}
-							// spider_rope_joints[x].anchor = new Vector2(0f, 0.005f);//(spider_ropes[x].transform.lossyScale.y/4f) * 0.001f);
-							// if (x != spider_ropes.Count-1){
-							// 	spider_rope_joints[x].connectedAnchor = new Vector2(0f, -0.005f);//, ((spider_ropes[x].transform.lossyScale.y/2f) * -0.0001f));
-							// }
 						}
-
-						// if (spider_rope_4_joint.connectedAnchor.y <= 2f){
-						// 	isDescending = false;
-						// 	isAscending = true;
-						// }
-
-						// if (moveTarget.y+0.2f > spider_rope_4_joint.connectedAnchor.y){
-						// 	isDescending = false;
-						// 	StartCoroutine(waitAndDescend());
-						// }
-						// Debug.Log("wait and descend");
-						// StartCoroutine(waitAndDescend());
-
-						// spider_rope_4_joint.connectedAnchor = Vector2.Lerp(spider_rope_4_joint.connectedAnchor, moveTarget, Time.deltaTime*1.5f);
 
 					} else if (isAscending == true){
 
+						Debug.Log("ascending");
+
 						for(int x = 0; x < spider_ropes.Count; x++){
 							spider_ropes[x].localScale = new Vector3(1f, spider_ropes[x].transform.localScale.y-0.01f, 1f);
-							// spider_rope_joints[x].anchor = new Vector2(0f, 0.005f);//(spider_ropes[x].transform.lossyScale.y/4f) * 0.001f);
-							// if (x != spider_ropes.Count-1){
-							// 	spider_rope_joints[x].connectedAnchor = new Vector2(0f, -0.005f);//, ((spider_ropes[x].transform.lossyScale.y/2f) * -0.0001f));
-							// }
 						}
 
-						double subx = Math.Round((double)spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x, 3) - Math.Round((double)transform.position.x, 3);
-						double suby = Math.Round((double)spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y, 3) - Math.Round((double)transform.position.y, 3);
+						// double subx = Math.Round((double)spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.x, 3) - Math.Round((double)transform.position.x, 3);
+						// double suby = Math.Round((double)spider_rope_joints[spider_rope_joints.Count-1].connectedAnchor.y, 3) - Math.Round((double)transform.position.y, 3);
 
-						// Debug.Log("subx");
-						// Debug.Log(subx);
-						// Debug.Log("suby");
-						// Debug.Log(suby);
-
-						if (isClimbing == true &&
-							subx < 0.4f && 
-							subx > -0.4f &&
-							suby < 0.4f && 
-							suby > -0.4f){
+						// if (//isClimbing == true &&
+						// 	subx < 0.4f && 
+						// 	subx > -0.4f &&
+						// 	suby < 0.4f && 
+						// 	suby > -0.4f){
+						if (spider_ropes[0].transform.localScale.y <= 0f) {
 
 							Debug.Log("SPAWN DAT SACK");
 
@@ -323,29 +357,8 @@ public class SpiderBehaviourScript : Enemy {
 								addSpiderSack(gameObject.transform.position);
 							}
 
-							// isDescending = true;
-							// isAscending = false;
 							stopHanging();
-							// isClimbing = true;
-							// addSpiderSack(gameObject.transform.position);
 						}
-
-						// if (spider_rope_4_joint.connectedAnchor.y >= 10f){
-						// 	isAscending = false;
-						// 	isDescending = true;
-						// 	moveTarget = new Vector2(spider_rope_4_joint.connectedAnchor.x, spider_rope_4_joint.connectedAnchor.y+1.5f);
-
-						
-
-						// } else {
-
-						// 	if (moveTarget.y-0.2f < spider_rope_4_joint.connectedAnchor.y){
-						// 		isAscending = false;
-						// 		StartCoroutine(waitAndAscend());
-						// 	}
-
-						// 	spider_rope_4_joint.connectedAnchor = Vector2.Lerp(spider_rope_4_joint.connectedAnchor, moveTarget, Time.deltaTime*1.5f);
-						// }
 
 					}
 				}
@@ -353,85 +366,44 @@ public class SpiderBehaviourScript : Enemy {
 			} else if (isClimbing == true){
 
 				float myAngle = transform.eulerAngles.z;
-				// if (myAngle > 90f){
-				// 	myAngle = myAngle - 90f;
-				// } else {
-				// 	myAngle = 360f + (myAngle - 90f);
-				// }
-				// if (myAngle > 180f){
-				// 	myAngle = myAngle - 180f;
-				// } else {
-				// 	myAngle = myAngle + 180f;
-				// }
 				myAngle = myAngle / 90f;
 				Vector2 checkDirection = new Vector2(99f, 99f);
-				// Debug.Log("myAngle");
-				// Debug.Log(myAngle);
 				float x = 99f;
 				float y = 99f;
 				if (myAngle < 2f){
 					if (myAngle < 1f){
-						// Debug.Log("11");
 						x = myAngle;
 					} else {
-						// Debug.Log("12");
 						x = 1f - (myAngle - 1f);
 					}
 				} else {
 					if (myAngle < 3f){
-						// Debug.Log("21");
 						x = 2f - myAngle;
 					} else {
-						// Debug.Log("22");
 						x = -1f + (myAngle-3f);
 					}
 				}
 				if (myAngle < 1f || myAngle > 3f){
 					if (myAngle < 1f){
-						// Debug.Log("31");
 						y = -1f + myAngle;
 					} else {
-						// Debug.Log("32");
 						y = 1f - (myAngle - 2f);
 					}
 				} else {
 					if (myAngle < 2f){
-						// Debug.Log("41");
 						y = myAngle - 1f;
 					} else {
-						// Debug.Log("42");
 						y = 0f - (myAngle - 3f);
 					}
 				}
 				checkDirection = new Vector2(x, y);
-				// if (myAngle < 1f){
-				// 	checkDirection = new Vector2(myAngle, 1f-myAngle);
-				// } else if (myAngle < 2f){
-				// 	myAngle = myAngle - 1f;
-				// 	checkDirection = new Vector2(1f-myAngle, myAngle);
-				// } else if (myAngle < 3f){
-				// 	myAngle = myAngle - 2f;
-				// 	checkDirection = new Vector2(0f-myAngle, -1f+myAngle);
-				// } else {
-				// 	myAngle = myAngle - 3f;
-				// 	checkDirection = new Vector2(-1f+myAngle, 0f-myAngle);
-				// }
-
-				// Debug.Log("myAngle");
-				// Debug.Log(myAngle);
-				// Debug.Log("checkDirection");
-				// Debug.Log(checkDirection);
 
 				RaycastHit2D[] hits = null;
-				// Debug.Log(Vector3.right);
-				// Debug.Log(Vector3.left);
 				hits = Physics2D.RaycastAll(transform.position, checkDirection, 0.05f);
 
-				// Debug.Log(hits.Length);
 				bool found = false;
 				for (int i = 0; i < hits.Length; i++) {
 		            RaycastHit2D hit = hits[i];
-		            // Debug.Log(hit.transform.name);
 					if (hit.transform.tag.Contains("climbable")){
 						turnDir = 0f;
 						transform.position = new Vector2(transform.position.x+(checkDirection.x/100f), transform.position.y+(checkDirection.y/100f));
@@ -439,8 +411,6 @@ public class SpiderBehaviourScript : Enemy {
 					}
 				}
 				if (found == false){
-					// Debug.Log("turnDir");
-					// Debug.Log(turnDir);
 					if (turnDir == 0){
 						turnDir = UnityEngine.Random.Range(-1, 2);
 					}
@@ -455,14 +425,6 @@ public class SpiderBehaviourScript : Enemy {
 			transform.localScale = new Vector3(-10, 10, 1);
 		}
 
-		// Debug.Log("isMoving" + isMoving);
-        // Debug.Log("isWaiting" + isWaiting);
-		// Debug.Log("isGrounded" + isGrounded);
-        // Debug.Log("isDead" + isDead);
-		// Debug.Log("canGrab" + canGrab);
-		// Debug.Log("isGrabbing" + isGrabbing);
-		// Debug.Log("isHanging" + isHanging);
-
 		animator.SetBool("isMoving", isMoving);
         animator.SetBool("isWaiting", isWaiting);
 		animator.SetBool("isGrounded", isGrounded);
@@ -471,6 +433,16 @@ public class SpiderBehaviourScript : Enemy {
 		animator.SetBool("isGrabbing", isGrabbing);
 		animator.SetBool("isHanging", isHanging);
 	}
+
+	IEnumerator dropDelay(){
+
+		yield return new WaitForSeconds(1f);
+		if (isDropping == true){
+			isDropping = false;
+		}
+	}
+
+
 
 	IEnumerator waitDelay(){
 
@@ -489,7 +461,6 @@ public class SpiderBehaviourScript : Enemy {
 		isMoving = true;
 		yield return new WaitForSeconds(1f);
 		if (isHanging == true){
-
 			if (isDropping == false){
 				isMoving = false;
 			}
@@ -516,17 +487,6 @@ public class SpiderBehaviourScript : Enemy {
 			isJumping = false;
 
 	        StartCoroutine(dieDelay());
-
-	        // mycollider.size = new Vector2(0.12f, 0.04f);
-	        // mycollider.offset = new Vector2(0f, -0.02f);
-			// if (frogType == "frog"){
-			// 	BoxCollider2D myFrogCollider = GetComponent<BoxCollider2D>();
-		    //     myFrogCollider.offset = new Vector2(0f, -0.035f);
-		    //     myFrogCollider.size = new Vector2(0.12f, 0.01f);
-			// }
-
-	        // StartCoroutine(dieDelay());
-	        // Destroy(gameObject);
 		} else {
 			StartCoroutine(protect());
 
@@ -634,10 +594,12 @@ public class SpiderBehaviourScript : Enemy {
 	}
 
 	public void setClimbing(bool state){
-		isClimbing = state;
-		if (isHanging == false){
-			myrigidbody.isKinematic = state;
-		}
+		canClimb = state;
+		// isClimbing = state;
+
+		// if (isHanging == false){
+		// 	myrigidbody.isKinematic = state;
+		// }
 	}
 
 	IEnumerator hideWebStrand(){

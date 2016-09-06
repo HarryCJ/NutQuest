@@ -34,7 +34,8 @@ public class player_bottom_collider_script : MonoBehaviour {
 			if(!targets.Contains(go)){
 
 				targets.Add(go);
-				parent.isGrounded = true;
+				parent.setGrounded(true);
+				// parent.isGrounded = true;
 				parent.isBoosting = false;
 
 		        if(other.tag.Contains("enemy")){
@@ -62,7 +63,8 @@ public class player_bottom_collider_script : MonoBehaviour {
 
 				targets.RemoveAll(item => item == null);
 				if (targets.Count == 0){
-					parent.isGrounded = false;
+					parent.setGrounded(false);
+					// parent.isGrounded = false;
 				}
 			}
 	    }

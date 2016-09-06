@@ -45,6 +45,8 @@ public class ToadBehaviourScript : Enemy {
             }
         }
 		StartCoroutine(waitAction());
+
+		StartCoroutine(checkOut());
 	}
 	
 	// Update is called once per frame
@@ -117,11 +119,11 @@ public class ToadBehaviourScript : Enemy {
 				if (directionIsRight == true){
 					directionIsRight = false;
 					dirMultiplier = -1f;
-					transform.localScale = new Vector3(-10, 10, 1);
+					transform.localScale = new Vector3(-20, 20, 1);
 				} else {
 					directionIsRight = true;
 					dirMultiplier = 1f;
-					transform.localScale = new Vector3(10, 10, 1);
+					transform.localScale = new Vector3(20, 20, 1);
 				}
 			}
 
@@ -224,6 +226,7 @@ public class ToadBehaviourScript : Enemy {
 			if (isDead == false){
 				GameObject tadpole = null;
 				tadpole = Instantiate(Resources.Load("Prefabs/tadpole")) as GameObject;
+        		tadpole.transform.parent = GameObject.Find("enemies").transform;
 				tadpole.transform.position = new Vector2(transform.position.x, transform.position.y);
 				tadpole.transform.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-80f, -150f) * dirMultiplier, UnityEngine.Random.Range(60f, 100f)), ForceMode2D.Impulse);
 
@@ -305,7 +308,7 @@ public class ToadBehaviourScript : Enemy {
 		if (isDead == false){
 
 			if (pickup != null){
-				birthPoints += pickup.gameObject.GetComponent<Pickup>().getNutPoints();
+				birthPoints += 2;//pickup.gameObject.GetComponent<Pickup>().getNutPoints();
 				Destroy(pickup.gameObject);
 				pickup = null;
 			}
@@ -371,7 +374,7 @@ public class ToadBehaviourScript : Enemy {
 		if (isDead == false){
 
 			if (pickup != null){
-				birthPoints += pickup.gameObject.GetComponent<Pickup>().getNutPoints();
+				birthPoints += 2;//pickup.gameObject.GetComponent<Pickup>().getNutPoints();
 				Destroy(pickup.gameObject);
 				pickup = null;
 			}

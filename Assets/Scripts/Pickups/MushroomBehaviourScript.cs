@@ -129,7 +129,7 @@ public class MushroomBehaviourScript : Pickup {
         Destroy(gameObject);
     }
 
-    public override int getNutPoints(){
+    public override float getNutPoints(){
         return clockPoints;
     }
 

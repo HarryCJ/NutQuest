@@ -56,6 +56,8 @@ public class BirdBehaviourScript : Enemy {
 			}
         }
 
+		StartCoroutine(checkOut());
+
 	}
 
 	// Update is called once per frame

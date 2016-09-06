@@ -24,6 +24,7 @@ public class ShadowBehaviourScript : MonoBehaviour {
 				Color myC = sr.color;
 	    		myC.a = 0.3f-(dif/30);
 	    		sr.color = myC;
+	    		break;
 			}
 		}
 		// Debug.Log(hit.collider.gameObject.name);

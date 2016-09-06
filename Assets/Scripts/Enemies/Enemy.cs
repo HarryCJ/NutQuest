@@ -63,4 +63,15 @@ public class Enemy : MonoBehaviour {
 		Destroy(gameObject);
     }
 
+	public IEnumerator checkOut(){
+		while (true){
+
+			if (transform.position.x > 45f || transform.position.y > 30f || transform.position.x < -45f || transform.position.y < -10f){
+				Destroy(transform.gameObject);
+			}
+
+	    	yield return new WaitForSeconds(5f);
+		}
+    }
+
 }

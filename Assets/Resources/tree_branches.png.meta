@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 90bf33acbe481094b96453d3e9af7c68
-timeCreated: 1449604355
+timeCreated: 1472336610
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -18,6 +18,8 @@ TextureImporter:
     21300022: tree_branches_11
     21300024: tree_branches_12
     21300026: tree_branches_13
+    21300028: tree_branches_14
+    21300030: tree_branches_15
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -71,7 +73,7 @@ TextureImporter:
         width: 30
         height: 95
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_1
       rect:
@@ -81,7 +83,7 @@ TextureImporter:
         width: 24
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_2
       rect:
@@ -91,7 +93,7 @@ TextureImporter:
         width: 63
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_3
       rect:
@@ -101,7 +103,7 @@ TextureImporter:
         width: 197
         height: 66
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_4
       rect:
@@ -111,7 +113,7 @@ TextureImporter:
         width: 67
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_5
       rect:
@@ -121,7 +123,7 @@ TextureImporter:
         width: 80
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_6
       rect:
@@ -131,7 +133,7 @@ TextureImporter:
         width: 53
         height: 53
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_7
       rect:
@@ -141,7 +143,7 @@ TextureImporter:
         width: 177
         height: 52
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_8
       rect:
@@ -151,7 +153,7 @@ TextureImporter:
         width: 103
         height: 69
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_9
       rect:
@@ -161,7 +163,7 @@ TextureImporter:
         width: 42
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_10
       rect:
@@ -171,7 +173,7 @@ TextureImporter:
         width: 205
         height: 55
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_11
       rect:
@@ -181,7 +183,7 @@ TextureImporter:
         width: 261
         height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_12
       rect:
@@ -191,7 +193,7 @@ TextureImporter:
         width: 232
         height: 67
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: tree_branches_13
       rect:
@@ -201,7 +203,27 @@ TextureImporter:
         width: 42
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tree_branches_14
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 55
+        width: 111
+        height: 39
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: tree_branches_15
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 270
+        width: 126
+        height: 59
+      alignment: 0
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
